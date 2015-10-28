@@ -187,15 +187,15 @@ F 3 "" H 5700 2750 60  0000 C CNN
 	0    1    1    0   
 $EndComp
 Text GLabel 5650 2550 2    60   Input ~ 0
-D1
+DISP-SI
 Text GLabel 5650 2400 2    60   Input ~ 0
-D2
+DISP-SCL
 Text GLabel 5650 2250 2    60   Input ~ 0
-D3
+DISP-A0
 Text GLabel 5650 2100 2    60   Input ~ 0
-D4
+DISP-RST
 Text GLabel 5650 1950 2    60   Input ~ 0
-D5
+DISP-CS1B
 Text GLabel 6050 2650 2    60   Input ~ 0
 VCC
 Text GLabel 6050 3450 2    60   Input ~ 0
@@ -334,15 +334,15 @@ F 3 "" H 8900 3050 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Text GLabel 8200 2500 0    60   Input ~ 0
-D1
+DISP-SI
 Text GLabel 8200 2650 0    60   Input ~ 0
-D2
+DISP-SCL
 Text GLabel 8200 2800 0    60   Input ~ 0
-D3
+DISP-A0
 Text GLabel 8200 2950 0    60   Input ~ 0
-D4
+DISP-RST
 Text GLabel 8200 3100 0    60   Input ~ 0
-D5
+DISP-CS1B
 Text GLabel 8250 3250 0    60   Input ~ 0
 LED
 Text GLabel 8250 3400 0    60   Input ~ 0

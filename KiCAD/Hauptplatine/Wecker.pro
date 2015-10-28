@@ -1,4 +1,4 @@
-update=21.10.2015 19:45:58
+update=28.10.2015 21:13:34
 version=1
 last_client=kicad
 [pcbnew]
@@ -23,9 +23,11 @@ ModuleOutlineThickness=0.150000000000
 [cvpcb]
 version=1
 NetIExt=net
+[general]
+version=1
 [eeschema]
 version=1
-LibDir=
+LibDir=../Hauptplatine.pretty
 [eeschema/libraries]
 LibName1=power
 LibName2=device
@@ -56,5 +58,3 @@ LibName26=opto
 LibName27=atmel
 LibName28=contrib
 LibName29=valves
-[general]
-version=1
