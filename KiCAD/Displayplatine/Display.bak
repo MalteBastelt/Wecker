@@ -93,7 +93,7 @@ U 1 1 562B74C8
 P 5700 4350
 F 0 "C9" H 5725 4450 50  0000 L CNN
 F 1 "C" H 5725 4250 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3_P2.5" H 5738 4200 30  0001 C CNN
+F 2 "Capacitors_ThroughHole:C_Disc_D7.5_P5" H 5738 4200 30  0001 C CNN
 F 3 "" H 5700 4350 60  0000 C CNN
 	1    5700 4350
 	0    1    1    0   
@@ -104,7 +104,7 @@ U 1 1 562B7536
 P 5700 4150
 F 0 "C8" H 5725 4250 50  0000 L CNN
 F 1 "C" H 5725 4050 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3_P2.5" H 5738 4000 30  0001 C CNN
+F 2 "Capacitors_ThroughHole:C_Disc_D7.5_P5" H 5738 4000 30  0001 C CNN
 F 3 "" H 5700 4150 60  0000 C CNN
 	1    5700 4150
 	0    1    1    0   
@@ -115,7 +115,7 @@ U 1 1 562B75A3
 P 5700 3950
 F 0 "C7" H 5725 4050 50  0000 L CNN
 F 1 "C" H 5725 3850 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3_P2.5" H 5738 3800 30  0001 C CNN
+F 2 "Capacitors_ThroughHole:C_Disc_D7.5_P5" H 5738 3800 30  0001 C CNN
 F 3 "" H 5700 3950 60  0000 C CNN
 	1    5700 3950
 	0    1    1    0   
@@ -126,7 +126,7 @@ U 1 1 562B75CA
 P 5700 3750
 F 0 "C6" H 5725 3850 50  0000 L CNN
 F 1 "C" H 5725 3650 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3_P2.5" H 5738 3600 30  0001 C CNN
+F 2 "Capacitors_ThroughHole:C_Disc_D7.5_P5" H 5738 3600 30  0001 C CNN
 F 3 "" H 5700 3750 60  0000 C CNN
 	1    5700 3750
 	0    1    1    0   
@@ -137,7 +137,7 @@ U 1 1 562B7621
 P 5700 3550
 F 0 "C5" H 5725 3650 50  0000 L CNN
 F 1 "C" H 5725 3450 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3_P2.5" H 5738 3400 30  0001 C CNN
+F 2 "Capacitors_ThroughHole:C_Disc_D7.5_P5" H 5738 3400 30  0001 C CNN
 F 3 "" H 5700 3550 60  0000 C CNN
 	1    5700 3550
 	0    1    1    0   
@@ -148,7 +148,7 @@ U 1 1 562B7CE7
 P 5700 3350
 F 0 "C4" H 5725 3450 50  0000 L CNN
 F 1 "C" H 5725 3250 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3_P2.5" H 5738 3200 30  0001 C CNN
+F 2 "Capacitors_ThroughHole:C_Disc_D7.5_P5" H 5738 3200 30  0001 C CNN
 F 3 "" H 5700 3350 60  0000 C CNN
 	1    5700 3350
 	0    1    1    0   
@@ -159,7 +159,7 @@ U 1 1 562B7D68
 P 5700 3150
 F 0 "C3" H 5725 3250 50  0000 L CNN
 F 1 "C" H 5725 3050 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3_P2.5" H 5738 3000 30  0001 C CNN
+F 2 "Capacitors_ThroughHole:C_Disc_D7.5_P5" H 5738 3000 30  0001 C CNN
 F 3 "" H 5700 3150 60  0000 C CNN
 	1    5700 3150
 	0    1    1    0   
@@ -170,7 +170,7 @@ U 1 1 562B7DB9
 P 5700 2950
 F 0 "C2" H 5725 3050 50  0000 L CNN
 F 1 "C" H 5725 2850 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3_P2.5" H 5738 2800 30  0001 C CNN
+F 2 "Capacitors_ThroughHole:C_Disc_D7.5_P5" H 5738 2800 30  0001 C CNN
 F 3 "" H 5700 2950 60  0000 C CNN
 	1    5700 2950
 	0    1    1    0   
@@ -181,7 +181,7 @@ U 1 1 562B7EAB
 P 5700 2750
 F 0 "C1" H 5725 2850 50  0000 L CNN
 F 1 "C" H 5725 2650 50  0000 L CNN
-F 2 "Capacitors_ThroughHole:C_Disc_D3_P2.5" H 5738 2600 30  0001 C CNN
+F 2 "Capacitors_ThroughHole:C_Disc_D7.5_P5" H 5738 2600 30  0001 C CNN
 F 3 "" H 5700 2750 60  0000 C CNN
 	1    5700 2750
 	0    1    1    0   
