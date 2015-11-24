@@ -1,0 +1,98 @@
+\documentclass[journal, a4paper]{IEEEtran}
+\usepackage[utf8]{inputenc} %UTF8 input file
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel} %Umlaute,Silbentrennung
+\usepackage{amssymb} %triangleright
+\usepackage{enumitem} %itemize einrücken 
+\usepackage{graphicx} %Grafiken einbinden
+\usepackage{booktabs} %Tabellen
+\usepackage{caption}
+\date{\today}
+\author{Malte~Ollenschläger}
+\title{DIY: Herstellung eines personalisierten Weckers mit Mikrocontroller und mp3-Player}
+\begin{document}
+\maketitle
+\begin{abstract}
+	Dieses Dokument beschreibt die Herstellung eines personalisierten Weckers. Das beinhaltet die Erstellung eines Gehäuses und das Schreiben der Software für den Mikrocontroller. Auch die Bauteilauswahl und die Fertigung von Platinen sind in diesem Projekt inbegriffen. Das Ziel ist einerseits die Fertigung des Weckers, andererseits die Durchführung eines Projektes mit verschiedenen Aufgabenbereichen, um das hierbei Gelernte, in folgenden Projekten zu einer effizienteren Arbeitsweise umzusetzen. Dies betrifft sowohl inhaltliche als auch formelle Arbeitsschritte.
+\end{abstract}
+
+%\begin{IEEEkeywords}
+%mp3-Wecker,
+%\end{IEEEkeywords}
+
+\section{Einleitung}
+	\IEEEPARstart{D}{ie} Gesamtfunktion des Weckers setzt sich aus mehreren Teilfunktionen zusammen. Eine der grundlegenden Funktionen ist die \textit{Anzeige der Uhrzeit} auf einem Display. Weiterhin wird das \textit{Datum} durch die Zusammensetzung des aktuelle Monats als Wort und des Tages als Ordinalzahl angezeigt. % An ausgewählten Tagen, wie zum Beispiel dem der Besitzerin soll das Display anstatt des Datums eine andere \textit{Zeichenkette oder ein Bild} anzeigen.
+	Ein weiteres Symbol gibt an, ob der \textit{Alarm ein- oder ausgeschaltet} ist. Das \textit{Umschalten} funktioniert durch das Gedrückthalten eines Tasters, über den gleichzeitig bei kurzem Drücken die \textit{Displaybeleuchtung} (UND DER FRONTPLATTE) eingeschaltet werden kann. Die Implementierung der \textit{Weckfunktion} sorgt bei eingeschaltetem Alarm dafür, dass zur konfigurierten Uhrzeit der mp3-Player gestartet und eine sich auf selbigem befindliche mp3-Datei abgespielt wird. Beim nächsten Weckruf wird die darauf folgende Datei abgespielt.\par
+
+	Über ein \textit{Menü}, das über das Bedienen eines zweiten Tasters zu erreichen ist, sind folgende Elemente einstellbar:
+	\begin{itemize}[leftmargin=20mm]
+	\item Uhrzeit
+	\item Weckzeit
+	\item Datum
+	\item Lautstärke
+	\item Boombox
+%	[$\blacktriangleright$]
+	\end{itemize}
+	Innerhalb des Menüs findet die Navigation über einen Drehencoder statt.	Bei der Einstellung des Datums wird neben Tag und Monat auch das Jahr abgefragt. Dies dient der \textit{Erkennung von Schaltjahren}, damit in diesen in der Datumsanzeige auf den 28. Februar statt dem 1. März der 29. Februar folgt. Mit dem Menüpunkt "Lautstärke"\ lässt sich eben diese des mp3-Players und damit die \textit{Lautstärke des Wecktons} verändern. Wird der Menüpunkt "Boombox"\ ausgewählt, so kann über ein Cinch-Kabel eine \textit{externe Audio-Quelle} angeschlossen werden und die darauf abgespielte Musik wird über die Lautsprecher des Weckers wiedergegeben. In dieser Zeit ist die Weckfunktion außer Kraft gesetzt.\par
+	Die Personalisierung des Weckers wird durch drei Eigenschaften erreicht. Die erste ist die Tatsache, dass die Weckmusik nach dem eigenen Geschmack angepasst werden kann, indem diese auf den mp3-Player kopiert wird. Die zweite personalisierte Eigenschaft ist, dass beispielsweise an Valentinstag und am Geburtstag der Person statt des Datums andere Bilder oder Texte eingeblendet werden. Der offensichtlichste Teil der Personalisierung liegt in der Herstellung des Gehäuses. In die Front des Weckers werden Motive zu denen die Benutzerin einen persönlichen Bezug hat geschnitten. Diese werden zusätzlich zum Display beleuchtet, wenn der entsprechende Taster betätigt wird.
+	Als Vorlage für dieses Projekt diente ein ebenfalls selbst hergestellter Wecker, der auf der Internetseite www.wiesolator.de vorgestellt wurde. 
+\section{Hardware}
+	In diesem Abschnitt wird die genutzte Hardware erläutert. Hierzu wird in Teil \ref{sc:Hardware:subsc:Bauteile} beschrieben, welche Bauteile benötigt werden. Der sich anschließende Teil \ref{sc:Hardware:subsc:Dimensionierung} befasst sich mit der externen Beschaltung der Bauteile. In \ref{sc:Hardware:subsc:Platinen} wird auf die Planung und Fertigung der Platinen eingegangen.
+	\subsection{Bauteile}
+		\label{sc:Hardware:subsc:Bauteile}
+		Der Schaltplan, der im Vorlageprojekt genutzt wurde, dient als Anhaltspunkt für die Hardware, die benötigt wird. Daraus wurde das Schaubild in Abb. \ref{fig:Hierarchie} erstellt, um eine Übersicht der wichtigsten Bauteile zu erhalten.
+		\begin{figure}
+				\includegraphics[width=80mm]{./Grafiken/Hierarchie}
+				\caption{Hierarchie der Elementaren Bauteile des Weckers. Die Pfeilspitze zeigt in die Datenflussrichtung. Blau unterlegt sind die für den Benutzer nicht zugänglichen Bauteile im Gehäuse. Die unterste Zeile zeigt die Ein- und Ausgabeebene, worüber der Benutzer mit dem Wecker interagiert.}
+				\label{fig:Hierarchie}
+		\end{figure} 
+		Eine Auflistung aller benötigten Bauteile ist in Tabelle \ref{tab:Bauteile} aufgeführt. Die benötigten Widerstände und Kondensatoren sind nicht aufgeführt, da diese den Datenblättern der jeweiligen Bauteile zu entnehmen sind. Zusätzlich werden für das Entprellen der Taster und des Drehencoders 100nF Kondensatoren eingesetzt.
+		\begin{center}
+			\begin{tabular}{rl}
+				\toprule
+				Funktionseinheit & Herstellerbezeichnung \\
+				\midrule
+				1,5VDC Spannungsregler & LM317\\
+				3,3VDC Spannungsregler & LM3940 \\
+				Display & EA DOGL128W-6 \\
+				Displaybeleuchtung & EA LED68x51-W\\
+				Drehencoder & STEC11B \\
+				Lautsprecher & Visaton FR8-8 \\
+				Mikrocontroller & Atmega328P \\
+				mp3-Player & Intenso Music Walker \\
+				Schaltnetzteil 5V/1A & goobay 54805 \\
+				Taster & FEHLT \\
+				Uhrenquarz 32kHz& - \\			
+				Verstärker & TDA7266 \\
+				\bottomrule		
+			\end{tabular}
+			\captionof{table}{Benötigte Bauteile. Notwendige Kondensatoren und Widerstände sind nicht angegeben. Diese sind in den jeweiligen Datenblättern zu finden.}
+			\label{tab:Bauteile}
+		\end{center}
+		Neben dieser Hardware werden Spanplatten zur Fertigung des Gehäuses, sowie einige Schrauben benötigt.
+
+		
+	\subsection{Dimensionierung}
+		\label{sc:Hardware:subsc:Dimensionierung}
+		Grundsätzlich wurden die in den Datenblättern empfohlenen Kondensatoren und Widerstände eingesetzt. Zum Entprellen der Taster sind in den entsprechenden Datenblättern keine Informationen vorhanden. Es werden Keramikkondensatoren der Größe $C=100 nF$ genutzt. Bei dem Spannungsregler für den mp3-Player (LM317) muss eine individuelle Dimensionierung vorgenommen werden, da der Ausgang des gewählten Spannungsreglers variable Spannungen erzeugen kann.
+		Die benötigte Versorgungsspannung beträgt $1,5 V$. Nach der im zugehörigen Datenblatt [QUELLE] angegebenen Formel, kann für eine gewünschte Ausgangsspannung die Größe der benötigten Widerstände berechnet werden.  Somit ergibt sich die Größe von $R_2$ nach folgender Gleichung:
+		\begin{equation}
+			\label{eqn:1,5VDC}
+			R_2 = (\frac{V_{out}}{V_{ref}}-1) / (\frac{1}{R_1}+I_{adj})
+		\end{equation}	
+		Für den Ausgleichsstrom wurden 50$\mu A$ und damit die Hälfte des Maximums angenommen. Dieser wird vom Spannungsregler so geregelt, dass $V_{ref} = 1,25 V$ gilt. Bei einer Wahl von $R_1 = 10k\Omega$ ergibt sich für $R_2 \approx 1,3 k\Omega$.
+	\subsection{Platinen}
+		\label{sc:Hardware:subsc:Platinen}
+\section{Software}
+	Um die gewünschten Inhalte auf dem LCD-Display anzuzeigen, müssen diese Elemente zunächst generiert werden. Dies geschah mittels eines Java-Programms, welches in Abschnitt \ref{sc:Software:subsc:Bildkonverter} beschrieben wird. Der zweite Abschnitt befasst sich mit dem umfangreicheren Code, der auf dem Mikrocontroller eingesetzt wird.
+	\subsection{Bildkonverter}
+		\label{sc:Software:Subsc:Bildkonverter}
+		Zunächst werden Dateien mit einzelnen Buchstaben, Symbolen und Bildern in Inkscape erstellt. In Schriftgröße 18 gibt ein zentrierter Großbuchstabe \textit{J} die vertikale Position aller weiteren Buchstaben vor, da dies der höchste Buchstabe ist. Die erstellte Grafik wird als \textit{*.png} exportiert und dem Java-Programm zugeführt. Dieses trägt den Namen \textit{Bildkonverter}. Wird es geöffnet, sind drei Buttons und ein Eingabefeld zu sehen. Über \textit{Datei wählen} wird das zu verarbeitende Bild ausgewählt. Die Umwandlung startet durch Klicken des entsprechenden Buttons. Zunächst wird durch Auswertung des Rotkanals jedes Pixels ein Binärwert erzeugt. Ist dieser größer oder gleich der angegebene Schwelle, so wird das entsprechende Pixel gesetzt. Ist es geringer als der Schwellwert, wird dieser Pixel auf null gesetzt. Anschließend werden jeweils 8 aufeinander folgende Pixel einer Spalte zu einem Hexadezimalwert zusammengefasst, um das Handling zu erleichtern. Wenn ein Bild eine Höhe von 16px hat und eine Breite von 3px, so werden 3 Mal zwei Hexadezimalwerte erzeugt. Diese sechs Werte werden in geschweiften Klammern ausgegeben, damit diese in einem Alphabet-Array im Code für den Mikrocontroller gespeichert werden können. Weiterhin wird eine Vorschau des Binärbildes angezeigt. So müssen die Daten nicht erst auf den Mikrocontroller überspielt und am LCD-Display angezeigt werden, um Fehler zu erkennen. Diese können beispielsweise durch Änderung des Schwellwertes oder durch das Setzen oder Löschen einzelner Pixel in dem Bild mittels Bildbearbeitungssoftware (zum Beispiel Paint) korrigiert werden. Zum Beenden des Konverters dient der Button \textit{Schließen}. Die Ausgabe befindet sich nun in einer Datei mit dem Namen \textit{Konverter-output.txt} in dem Ordner, in dem das Java-Programm gestartet wurde.\par
+	\subsection{Atmel-Code}
+	Der Code für den Mikrocontroller setzt sich aus verschiedenen Dateien zusammen. Die Hauptaufgabe übernimmt eine Endlosschleife in der Main-Funktion der Datei EADOGL128.c. Weiterhin gibt es mehrere Interrupt-Service-Routinen, die Einfluss auf die ausgeführten Aktionen in der Main-Funktion nehmen.
+uC ohne sleep 6,53mA mit 1,03mA
+mit Spannungsregler3,3 und sleep 9,3 mA
+Folglich hat Spannungsregler 9,3-1,03= 8,2mA
+zusätzlich 1,5 Spannungsregler 9,51 mA --> macht 0,2mA
+das alles mit Display 9,83 --> Display 0,32mA
+\end{document}
