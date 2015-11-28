@@ -1,4 +1,8 @@
 /*
+Autor: Malte Ollenschläger
+Dieses Werk ist lizenziert unter einer Creative Commons Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz.
+*/
+/*
 Reihe = Spalte
 Page  = acht gebündelte Pixel -> Page 0(1) enthält Reihen 0-7(8-15)
 */
@@ -33,7 +37,6 @@ Page  = acht gebündelte Pixel -> Page 0(1) enthält Reihen 0-7(8-15)
 #define ON true
 #define STDDISPLAY true
 #define LIGHT_ON_DURATION 3 //wieviele Sekunden bleibt Licht an, wenn Taster gedrückt
-
 
 
 
@@ -90,7 +93,7 @@ void print_ASCIIString(int, int, int*, int);
 
 void print_menuSelection(int, int);
 
-void remove_menuSelection(int);
+void remove_menuSelection(int, int);
 
 int get_menuSelection(int, int);
 
@@ -100,13 +103,13 @@ void set_time(bool);
 
 void set_date();
 
-void show_mainMenu2();
+bool show_mainMenu2();
 
 void set_timeParameter(int *, int, bool);
 
 void wait_drehencDone();
 
-void wakeUp_Anja();
+void wakeUp_User();
 
 int get_timeWidth(int);
 
@@ -139,6 +142,8 @@ void set_audio();
 void boombox();
 
 void printSnoozetime();
+
+void snooze();
 
 
 #endif

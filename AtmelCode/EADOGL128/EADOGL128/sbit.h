@@ -1,20 +1,9 @@
-/*
- * Usage: 
- *
- * Define a port pin (input, output or ddr) like:
- *
- * 	#define key_input	SBIT(PINB,  2)	// Input Port B pin 2
- * 	#define led_output	SBIT(PORTB,  3)	// Output Port B pin 3 
- *
- * and access the 
- *
- * 	if (key_input)
- *		led_output = 1;
- *
- */
-#ifndef _sbit_h_
-#define _sbit_h_
+#ifndef sbit_h_
+#define sbit_h_
 
+#include <avr\io.h>
+
+// 			Access bits like variables:
 struct bits {
   uint8_t b0:1;
   uint8_t b1:1;
@@ -26,7 +15,7 @@ struct bits {
   uint8_t b7:1;
 } __attribute__((__packed__));
 
-
-#define SBIT(port, pin) ((*(volatile struct bits*)&port).b##pin)
+#define SBIT_(port,pin) ((*(volatile struct bits*)&port).b##pin)
+#define	SBIT(x,y)	SBIT_(x,y)
 
 #endif

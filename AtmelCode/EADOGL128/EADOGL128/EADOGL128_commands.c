@@ -1,3 +1,7 @@
+/*
+Autor: Malte Ollenschläger
+Dieses Werk ist lizenziert unter einer Creative Commons Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz.
+*/
 #include "EADOGL128_commands.h"
 
 void lcdInit() {

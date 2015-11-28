@@ -23,7 +23,7 @@ c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/g
 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(fp_zero.o)
                               c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(addsf3x.o) (__fp_zero)
 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(gesf2.o)
-                              EADOGL128.o (__gtsf2)
+                              EADOGL128.o (__gesf2)
 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_divmodhi4.o)
                               EADOGL128.o (__divmodhi4)
 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
@@ -38,7 +38,7 @@ c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/g
 Allocating common symbols
 Common symbol       size              file
 
-hakenSymb           0x88              EADOGL128.o
+hakenSymb           0x22              EADOGL128.o
 herzSymb            0x20              EADOGL128.o
 herzKleinOffenSymb  0xa               EADOGL128.o
 light_sec_off       0x2               EADOGL128.o
@@ -53,16 +53,15 @@ Discarded input sections
  .data          0x00000000        0x0 EADOGL128.o
  .bss           0x00000000        0x0 EADOGL128.o
  .text.amp_on   0x00000000        0x2 EADOGL128.o
+ .text.amp_off  0x00000000        0x2 EADOGL128.o
  .text.mute_on  0x00000000        0x2 EADOGL128.o
  .text.mute_off
                 0x00000000        0x2 EADOGL128.o
  .text.mp3Player_on
+                0x00000000       0x14 EADOGL128.o
+ .text.mp3Player_off
                 0x00000000        0x2 EADOGL128.o
- .text.next_song
-                0x00000000        0x2 EADOGL128.o
- .text.music_pause
-                0x00000000        0x2 EADOGL128.o
- .text.wakeUp_Anja
+ .text.play_pause
                 0x00000000        0x2 EADOGL128.o
  .text.wait_drehencDone
                 0x00000000       0x34 EADOGL128.o
@@ -72,11 +71,11 @@ Discarded input sections
                 0x00000000       0x2c EADOGL128.o
  .text.charArraySize
                 0x00000000        0x6 EADOGL128.o
- .text.set_audio
-                0x00000000        0x2 EADOGL128.o
  .bss.test      0x00000000        0x2 EADOGL128.o
  .bss.volumeChange
                 0x00000000        0x2 EADOGL128.o
+ .data.increment
+                0x00000000        0x1 EADOGL128.o
  .bss.alarmXPos
                 0x00000000        0x2 EADOGL128.o
  .bss.cnt       0x00000000        0x2 EADOGL128.o
@@ -310,7 +309,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x3cba
+.text           0x00000000     0x426e
  *(.vectors)
  .vectors       0x00000000       0x68 C:/Program Files/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -351,53 +350,57 @@ END GROUP
  .progmem.data.alphabet
                 0x00000594      0x7e0 EADOGL128.o
                 0x00000594                alphabet
+ .progmem.data.speaker
+                0x00000d74       0x5d EADOGL128.o
+                0x00000d74                speaker
  .progmem.data.rose
-                0x00000d74       0x5a EADOGL128.o
-                0x00000d74                rose
+                0x00000dd1       0x5a EADOGL128.o
+                0x00000dd1                rose
  .progmem.data.herzKleinOffen
-                0x00000dce        0xa EADOGL128.o
-                0x00000dce                herzKleinOffen
+                0x00000e2b        0xa EADOGL128.o
+                0x00000e2b                herzKleinOffen
  .progmem.data.herzKlein
-                0x00000dd8        0xa EADOGL128.o
-                0x00000dd8                herzKlein
+                0x00000e35        0xa EADOGL128.o
+                0x00000e35                herzKlein
  .progmem.data.herz
-                0x00000de2       0x20 EADOGL128.o
-                0x00000de2                herz
+                0x00000e3f       0x20 EADOGL128.o
+                0x00000e3f                herz
  .progmem.data.haken
-                0x00000e02       0x3c EADOGL128.o
-                0x00000e02                haken
+                0x00000e5f       0x22 EADOGL128.o
+                0x00000e5f                haken
  .progmem.data.note
-                0x00000e3e       0x12 EADOGL128.o
-                0x00000e3e                note
-                0x00000e50                . = ALIGN (0x2)
+                0x00000e81       0x12 EADOGL128.o
+                0x00000e81                note
+                0x00000e94                . = ALIGN (0x2)
+ *fill*         0x00000e93        0x1 
  *(.jumptables)
  *(.jumptables*)
  *(.lowtext)
  *(.lowtext*)
-                0x00000e50                __ctors_start = .
+                0x00000e94                __ctors_start = .
  *(.ctors)
-                0x00000e50                __ctors_end = .
-                0x00000e50                __dtors_start = .
+                0x00000e94                __ctors_end = .
+                0x00000e94                __dtors_start = .
  *(.dtors)
-                0x00000e50                __dtors_end = .
+                0x00000e94                __dtors_end = .
  SORT(*)(.ctors)
  SORT(*)(.dtors)
  *(.init0)
- .init0         0x00000e50        0x0 C:/Program Files/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
-                0x00000e50                __init
+ .init0         0x00000e94        0x0 C:/Program Files/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
+                0x00000e94                __init
  *(.init0)
  *(.init1)
  *(.init1)
  *(.init2)
- .init2         0x00000e50        0xc C:/Program Files/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
+ .init2         0x00000e94        0xc C:/Program Files/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
  *(.init2)
  *(.init3)
  *(.init3)
  *(.init4)
- .init4         0x00000e5c       0x16 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_copy_data.o)
-                0x00000e5c                __do_copy_data
- .init4         0x00000e72       0x10 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_clear_bss.o)
-                0x00000e72                __do_clear_bss
+ .init4         0x00000ea0       0x16 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_copy_data.o)
+                0x00000ea0                __do_copy_data
+ .init4         0x00000eb6       0x10 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_clear_bss.o)
+                0x00000eb6                __do_clear_bss
  *(.init4)
  *(.init5)
  *(.init5)
@@ -408,273 +411,292 @@ END GROUP
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x00000e82        0x8 C:/Program Files/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
+ .init9         0x00000ec6        0x8 C:/Program Files/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
  *(.init9)
  *(.text)
- .text          0x00000e8a        0x4 C:/Program Files/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
-                0x00000e8a                __vector_22
-                0x00000e8a                __vector_24
-                0x00000e8a                __vector_12
-                0x00000e8a                __bad_interrupt
-                0x00000e8a                __vector_6
-                0x00000e8a                __vector_3
-                0x00000e8a                __vector_23
-                0x00000e8a                __vector_25
-                0x00000e8a                __vector_11
-                0x00000e8a                __vector_13
-                0x00000e8a                __vector_17
-                0x00000e8a                __vector_19
-                0x00000e8a                __vector_7
-                0x00000e8a                __vector_5
-                0x00000e8a                __vector_2
-                0x00000e8a                __vector_21
-                0x00000e8a                __vector_15
-                0x00000e8a                __vector_8
-                0x00000e8a                __vector_14
-                0x00000e8a                __vector_10
-                0x00000e8a                __vector_18
-                0x00000e8a                __vector_20
-                0x00000e8e                . = ALIGN (0x2)
+ .text          0x00000ece        0x4 C:/Program Files/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
+                0x00000ece                __vector_22
+                0x00000ece                __vector_1
+                0x00000ece                __vector_24
+                0x00000ece                __vector_12
+                0x00000ece                __bad_interrupt
+                0x00000ece                __vector_6
+                0x00000ece                __vector_23
+                0x00000ece                __vector_25
+                0x00000ece                __vector_11
+                0x00000ece                __vector_13
+                0x00000ece                __vector_17
+                0x00000ece                __vector_19
+                0x00000ece                __vector_7
+                0x00000ece                __vector_4
+                0x00000ece                __vector_2
+                0x00000ece                __vector_21
+                0x00000ece                __vector_15
+                0x00000ece                __vector_8
+                0x00000ece                __vector_14
+                0x00000ece                __vector_10
+                0x00000ece                __vector_18
+                0x00000ece                __vector_20
+                0x00000ed2                . = ALIGN (0x2)
  *(.text.*)
- .text.sendCmd  0x00000e8e       0x20 EADOGL128.o
-                0x00000e8e                sendCmd
- .text.lcdInit  0x00000eae       0x56 EADOGL128.o
-                0x00000eae                lcdInit
+ .text.sendCmd  0x00000ed2       0x20 EADOGL128.o
+                0x00000ed2                sendCmd
+ .text.lcdInit  0x00000ef2       0x56 EADOGL128.o
+                0x00000ef2                lcdInit
  .text.sendData
-                0x00000f04        0xa EADOGL128.o
-                0x00000f04                sendData
+                0x00000f48        0xa EADOGL128.o
+                0x00000f48                sendData
  .text.setColumn
-                0x00000f0e       0x1a EADOGL128.o
-                0x00000f0e                setColumn
- .text.setPage  0x00000f28        0x8 EADOGL128.o
-                0x00000f28                setPage
+                0x00000f52       0x1a EADOGL128.o
+                0x00000f52                setColumn
+ .text.setPage  0x00000f6c        0x8 EADOGL128.o
+                0x00000f6c                setPage
  .text.clear_LCD
-                0x00000f30       0x36 EADOGL128.o
-                0x00000f30                clear_LCD
+                0x00000f74       0x36 EADOGL128.o
+                0x00000f74                clear_LCD
  .text.set_pixel
-                0x00000f66       0x46 EADOGL128.o
-                0x00000f66                set_pixel
+                0x00000faa       0x46 EADOGL128.o
+                0x00000faa                set_pixel
  .text.reset_pixel
-                0x00000fac       0x48 EADOGL128.o
-                0x00000fac                reset_pixel
+                0x00000ff0       0x48 EADOGL128.o
+                0x00000ff0                reset_pixel
  .text.update_LCD
-                0x00000ff4       0x5e EADOGL128.o
-                0x00000ff4                update_LCD
+                0x00001038       0x5e EADOGL128.o
+                0x00001038                update_LCD
  .text.print_symbol
-                0x00001052      0x128 EADOGL128.o
-                0x00001052                print_symbol
+                0x00001096      0x128 EADOGL128.o
+                0x00001096                print_symbol
  .text.print_letter
-                0x0000117a       0xec EADOGL128.o
-                0x0000117a                print_letter
+                0x000011be       0xec EADOGL128.o
+                0x000011be                print_letter
  .text.print_smallNumber
-                0x00001266       0xfa EADOGL128.o
-                0x00001266                print_smallNumber
+                0x000012aa       0xfa EADOGL128.o
+                0x000012aa                print_smallNumber
  .text.print_bigNumber
-                0x00001360      0x118 EADOGL128.o
-                0x00001360                print_bigNumber
- .text.__vector_4
-                0x00001478       0x68 EADOGL128.o
-                0x00001478                __vector_4
- .text.__vector_1
-                0x000014e0       0x98 EADOGL128.o
-                0x000014e0                __vector_1
+                0x000013a4      0x118 EADOGL128.o
+                0x000013a4                print_bigNumber
+ .text.push_button
+                0x000014bc       0x2e EADOGL128.o
+                0x000014bc                push_button
+ .text.release_button
+                0x000014ea       0x2e EADOGL128.o
+                0x000014ea                release_button
+ .text.next_song
+                0x00001518       0x2c EADOGL128.o
+                0x00001518                next_song
+ .text.volume   0x00001544       0x5c EADOGL128.o
+                0x00001544                volume
+ .text.__vector_3
+                0x000015a0       0x66 EADOGL128.o
+                0x000015a0                __vector_3
+ .text.__vector_5
+                0x00001606       0x8c EADOGL128.o
+                0x00001606                __vector_5
  .text.__vector_9
-                0x00001578       0xce EADOGL128.o
-                0x00001578                __vector_9
+                0x00001692       0xa6 EADOGL128.o
+                0x00001692                __vector_9
  .text.__vector_16
-                0x00001646       0x70 EADOGL128.o
-                0x00001646                __vector_16
- .text.remove_menuSelection
-                0x000016b6       0x4c EADOGL128.o
-                0x000016b6                remove_menuSelection
- .text.print_menuSelection
-                0x00001702       0x6e EADOGL128.o
-                0x00001702                print_menuSelection
- .text.print_ASCIIString
-                0x00001770       0x80 EADOGL128.o
-                0x00001770                print_ASCIIString
- .text.clear_pixelMatrix
-                0x000017f0       0x22 EADOGL128.o
-                0x000017f0                clear_pixelMatrix
- .text.start_btnPress
-                0x00001812       0x18 EADOGL128.o
-                0x00001812                start_btnPress
+                0x00001738       0x70 EADOGL128.o
+                0x00001738                __vector_16
  .text.configureTimerAndInterrupts
-                0x0000182a       0x44 EADOGL128.o
-                0x0000182a                configureTimerAndInterrupts
+                0x000017a8       0x4a EADOGL128.o
+                0x000017a8                configureTimerAndInterrupts
+ .text.snooze   0x000017f2       0x3e EADOGL128.o
+                0x000017f2                snooze
+ .text.remove_menuSelection
+                0x00001830       0x4e EADOGL128.o
+                0x00001830                remove_menuSelection
+ .text.print_menuSelection
+                0x0000187e       0x6e EADOGL128.o
+                0x0000187e                print_menuSelection
+ .text.print_ASCIIString
+                0x000018ec       0x80 EADOGL128.o
+                0x000018ec                print_ASCIIString
+ .text.clear_pixelMatrix
+                0x0000196c       0x22 EADOGL128.o
+                0x0000196c                clear_pixelMatrix
+ .text.start_btnPress
+                0x0000198e       0x18 EADOGL128.o
+                0x0000198e                start_btnPress
  .text.check_TimeUpdate
-                0x0000186e       0x1c EADOGL128.o
-                0x0000186e                check_TimeUpdate
+                0x000019a6       0x1c EADOGL128.o
+                0x000019a6                check_TimeUpdate
  .text.print_alarmLogo
-                0x0000188a       0x66 EADOGL128.o
-                0x0000188a                print_alarmLogo
+                0x000019c2       0x66 EADOGL128.o
+                0x000019c2                print_alarmLogo
  .text.print_timeDot
-                0x000018f0       0xde EADOGL128.o
-                0x000018f0                print_timeDot
+                0x00001a28       0xde EADOGL128.o
+                0x00001a28                print_timeDot
  .text.get_timeWidth
-                0x000019ce       0x22 EADOGL128.o
-                0x000019ce                get_timeWidth
+                0x00001b06       0x22 EADOGL128.o
+                0x00001b06                get_timeWidth
  .text.update_timeXPos
-                0x000019f0       0x4a EADOGL128.o
-                0x000019f0                update_timeXPos
+                0x00001b28       0x4a EADOGL128.o
+                0x00001b28                update_timeXPos
  .text.print_hour
-                0x00001a3a       0x66 EADOGL128.o
-                0x00001a3a                print_hour
+                0x00001b72       0x66 EADOGL128.o
+                0x00001b72                print_hour
  .text.print_minute
-                0x00001aa0       0x82 EADOGL128.o
-                0x00001aa0                print_minute
+                0x00001bd8       0x82 EADOGL128.o
+                0x00001bd8                print_minute
  .text.print_time
-                0x00001b22       0x58 EADOGL128.o
-                0x00001b22                print_time
+                0x00001c5a       0x58 EADOGL128.o
+                0x00001c5a                print_time
  .text.get_stringWidth
-                0x00001b7a       0x3c EADOGL128.o
-                0x00001b7a                get_stringWidth
+                0x00001cb2       0x3c EADOGL128.o
+                0x00001cb2                get_stringWidth
  .text.print_month
-                0x00001bb6       0xce EADOGL128.o
-                0x00001bb6                print_month
+                0x00001cee       0xce EADOGL128.o
+                0x00001cee                print_month
  .text.print_day
-                0x00001c84       0x6a EADOGL128.o
-                0x00001c84                print_day
+                0x00001dbc       0x6a EADOGL128.o
+                0x00001dbc                print_day
  .text.get_yearWidth
-                0x00001cee       0x48 EADOGL128.o
-                0x00001cee                get_yearWidth
+                0x00001e26       0x48 EADOGL128.o
+                0x00001e26                get_yearWidth
  .text.get_yearXPos
-                0x00001d36       0x1c EADOGL128.o
-                0x00001d36                get_yearXPos
+                0x00001e6e       0x1c EADOGL128.o
+                0x00001e6e                get_yearXPos
  .text.print_year
-                0x00001d52       0xc2 EADOGL128.o
-                0x00001d52                print_year
+                0x00001e8a       0xc2 EADOGL128.o
+                0x00001e8a                print_year
  .text.get_dayWidth
-                0x00001e14       0x4a EADOGL128.o
-                0x00001e14                get_dayWidth
+                0x00001f4c       0x4a EADOGL128.o
+                0x00001f4c                get_dayWidth
  .text.get_monthWidth
-                0x00001e5e       0x56 EADOGL128.o
-                0x00001e5e                get_monthWidth
+                0x00001f96       0x56 EADOGL128.o
+                0x00001f96                get_monthWidth
  .text.get_dateWidth
-                0x00001eb4       0x1a EADOGL128.o
-                0x00001eb4                get_dateWidth
+                0x00001fec       0x1a EADOGL128.o
+                0x00001fec                get_dateWidth
  .text.get_dateXPos
-                0x00001ece       0x1c EADOGL128.o
-                0x00001ece                get_dateXPos
+                0x00002006       0x1c EADOGL128.o
+                0x00002006                get_dateXPos
  .text.convertString
-                0x00001eea       0x76 EADOGL128.o
-                0x00001eea                convertString
+                0x00002022       0x90 EADOGL128.o
+                0x00002022                convertString
  .text.print_menuItems
-                0x00001f60      0x198 EADOGL128.o
-                0x00001f60                print_menuItems
+                0x000020b2      0x198 EADOGL128.o
+                0x000020b2                print_menuItems
  .text.print_date
-                0x000020f8      0x1e2 EADOGL128.o
-                0x000020f8                print_date
+                0x0000224a      0x1e2 EADOGL128.o
+                0x0000224a                print_date
  .text.print_stdDisplay
-                0x000022da       0x22 EADOGL128.o
-                0x000022da                print_stdDisplay
+                0x0000242c       0x22 EADOGL128.o
+                0x0000242c                print_stdDisplay
  .text.check_light
-                0x000022fc       0xcc EADOGL128.o
-                0x000022fc                check_light
+                0x0000244e       0xcc EADOGL128.o
+                0x0000244e                check_light
  .text.increment_date
-                0x000023c8       0xa2 EADOGL128.o
-                0x000023c8                increment_date
+                0x0000251a       0xa2 EADOGL128.o
+                0x0000251a                increment_date
  .text.update_time
-                0x0000246a       0xb0 EADOGL128.o
-                0x0000246a                update_time
+                0x000025bc       0xb0 EADOGL128.o
+                0x000025bc                update_time
  .text.goodNight
-                0x0000251a       0x72 EADOGL128.o
-                0x0000251a                goodNight
+                0x0000266c       0x72 EADOGL128.o
+                0x0000266c                goodNight
+ .text.wakeUp_User
+                0x000026de      0x19a EADOGL128.o
+                0x000026de                wakeUp_User
  .text.get_menuSelection
-                0x0000258c       0xa4 EADOGL128.o
-                0x0000258c                get_menuSelection
+                0x00002878       0xa4 EADOGL128.o
+                0x00002878                get_menuSelection
  .text.set_timeParameter
-                0x00002630      0x1a2 EADOGL128.o
-                0x00002630                set_timeParameter
+                0x0000291c      0x1a2 EADOGL128.o
+                0x0000291c                set_timeParameter
  .text.set_time
-                0x000027d2      0x41c EADOGL128.o
-                0x000027d2                set_time
+                0x00002abe      0x424 EADOGL128.o
+                0x00002abe                set_time
  .text.set_alarm
-                0x00002bee        0x8 EADOGL128.o
-                0x00002bee                set_alarm
- .text.set_day  0x00002bf6      0x122 EADOGL128.o
-                0x00002bf6                set_day
+                0x00002ee2        0x8 EADOGL128.o
+                0x00002ee2                set_alarm
+ .text.set_day  0x00002eea      0x122 EADOGL128.o
+                0x00002eea                set_day
  .text.set_month
-                0x00002d18      0x136 EADOGL128.o
-                0x00002d18                set_month
+                0x0000300c      0x136 EADOGL128.o
+                0x0000300c                set_month
  .text.set_year
-                0x00002e4e      0x12e EADOGL128.o
-                0x00002e4e                set_year
+                0x00003142      0x12e EADOGL128.o
+                0x00003142                set_year
  .text.set_date
-                0x00002f7c      0x40c EADOGL128.o
-                0x00002f7c                set_date
- .text.boombox  0x00003388       0xba EADOGL128.o
-                0x00003388                boombox
+                0x00003270      0x40c EADOGL128.o
+                0x00003270                set_date
+ .text.set_audio
+                0x0000367c      0x25a EADOGL128.o
+                0x0000367c                set_audio
+ .text.boombox  0x000038d6       0xba EADOGL128.o
+                0x000038d6                boombox
  .text.printSnoozetime
-                0x00003442       0xf6 EADOGL128.o
-                0x00003442                printSnoozetime
+                0x00003990       0xf6 EADOGL128.o
+                0x00003990                printSnoozetime
  .text.set_snoozeDuration
-                0x00003538      0x2be EADOGL128.o
-                0x00003538                set_snoozeDuration
+                0x00003a86      0x2be EADOGL128.o
+                0x00003a86                set_snoozeDuration
  .text.show_mainMenu2
-                0x000037f6       0x6c EADOGL128.o
-                0x000037f6                show_mainMenu2
+                0x00003d44       0x80 EADOGL128.o
+                0x00003d44                show_mainMenu2
  .text.show_mainMenu
-                0x00003862       0x7a EADOGL128.o
-                0x00003862                show_mainMenu
- .text.main     0x000038dc      0x1b2 EADOGL128.o
-                0x000038dc                main
+                0x00003dc4       0x8c EADOGL128.o
+                0x00003dc4                show_mainMenu
+ .text.main     0x00003e50      0x1f2 EADOGL128.o
+                0x00003e50                main
  .text.avr-libc.fplib
-                0x00003a8e        0xe c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(addsf3.o)
-                0x00003a8e                __subsf3
-                0x00003a90                __addsf3
+                0x00004042        0xe c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(addsf3.o)
+                0x00004042                __subsf3
+                0x00004044                __addsf3
  .text.avr-libc.fplib
-                0x00003a9c       0xcc c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(addsf3x.o)
-                0x00003abe                __addsf3x
+                0x00004050       0xcc c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(addsf3x.o)
+                0x00004072                __addsf3x
  .text.avr-libc.fplib
-                0x00003b68        0xa c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
-                0x00003b68                __nesf2
-                0x00003b68                __eqsf2
-                0x00003b68                __cmpsf2
-                0x00003b68                __ltsf2
-                0x00003b68                __lesf2
+                0x0000411c        0xa c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(cmpsf2.o)
+                0x0000411c                __nesf2
+                0x0000411c                __eqsf2
+                0x0000411c                __cmpsf2
+                0x0000411c                __ltsf2
+                0x0000411c                __lesf2
  .text.avr-libc.fplib
-                0x00003b72       0x48 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(fp_cmp.o)
-                0x00003b72                __fp_cmp
+                0x00004126       0x48 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(fp_cmp.o)
+                0x00004126                __fp_cmp
  .text.avr-libc.fplib
-                0x00003bba        0xc c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(fp_inf.o)
-                0x00003bba                __fp_inf
+                0x0000416e        0xc c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(fp_inf.o)
+                0x0000416e                __fp_inf
  .text.avr-libc.fplib
-                0x00003bc6        0x6 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(fp_nan.o)
-                0x00003bc6                __fp_nan
+                0x0000417a        0x6 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(fp_nan.o)
+                0x0000417a                __fp_nan
  .text.avr-libc.fplib
-                0x00003bcc        0xe c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
-                0x00003bcc                __fp_pscA
+                0x00004180        0xe c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(fp_pscA.o)
+                0x00004180                __fp_pscA
  .text.avr-libc.fplib
-                0x00003bda        0xe c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
-                0x00003bda                __fp_pscB
+                0x0000418e        0xe c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(fp_pscB.o)
+                0x0000418e                __fp_pscB
  .text.avr-libc.fplib
-                0x00003be8       0x22 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(fp_round.o)
-                0x00003be8                __fp_round
+                0x0000419c       0x22 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(fp_round.o)
+                0x0000419c                __fp_round
  .text.avr-libc.fplib
-                0x00003c0a       0x44 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(fp_split3.o)
-                0x00003c0a                __fp_split3
-                0x00003c1a                __fp_splitA
+                0x000041be       0x44 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(fp_split3.o)
+                0x000041be                __fp_split3
+                0x000041ce                __fp_splitA
  .text.avr-libc.fplib
-                0x00003c4e        0xe c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(fp_zero.o)
-                0x00003c4e                __fp_zero
-                0x00003c50                __fp_szero
+                0x00004202        0xe c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(fp_zero.o)
+                0x00004202                __fp_zero
+                0x00004204                __fp_szero
  .text.avr-libc.fplib
-                0x00003c5c        0xa c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(gesf2.o)
-                0x00003c5c                __gesf2
-                0x00003c5c                __gtsf2
+                0x00004210        0xa c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a(gesf2.o)
+                0x00004210                __gesf2
+                0x00004210                __gtsf2
  .text.libgcc.div
-                0x00003c66       0x28 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_divmodhi4.o)
-                0x00003c66                _div
-                0x00003c66                __divmodhi4
+                0x0000421a       0x28 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_divmodhi4.o)
+                0x0000421a                _div
+                0x0000421a                __divmodhi4
  .text.libgcc.div
-                0x00003c8e       0x28 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_udivmodhi4.o)
-                0x00003c8e                __udivmodhi4
-                0x00003cb6                . = ALIGN (0x2)
+                0x00004242       0x28 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_udivmodhi4.o)
+                0x00004242                __udivmodhi4
+                0x0000426a                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00003cb6        0x0 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
-                0x00003cb6                _exit
-                0x00003cb6                exit
+ .fini9         0x0000426a        0x0 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+                0x0000426a                _exit
+                0x0000426a                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -693,108 +715,107 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00003cb6        0x4 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+ .fini0         0x0000426a        0x4 c:/program files/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00003cba                _etext = .
+                0x0000426e                _etext = .
 
-.data           0x00800100       0x48 load address 0x00003cba
+.data           0x00800100       0x62 load address 0x0000426e
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
- .data.increment
-                0x00800100        0x1 EADOGL128.o
-                0x00800100                increment
  .data.daysThisMonth
-                0x00800101        0x2 EADOGL128.o
-                0x00800101                daysThisMonth
- .data.year     0x00800103        0x2 EADOGL128.o
-                0x00800103                year
- .data.month    0x00800105        0x2 EADOGL128.o
-                0x00800105                month
- .data.day      0x00800107        0x2 EADOGL128.o
-                0x00800107                day
+                0x00800100        0x2 EADOGL128.o
+                0x00800100                daysThisMonth
+ .data.year     0x00800102        0x2 EADOGL128.o
+                0x00800102                year
+ .data.month    0x00800104        0x2 EADOGL128.o
+                0x00800104                month
+ .data.day      0x00800106        0x2 EADOGL128.o
+                0x00800106                day
+ .data.snoozeCounter
+                0x00800108        0x1 EADOGL128.o
+                0x00800108                snoozeCounter
  .data.snoozeDuration
                 0x00800109        0x2 EADOGL128.o
                 0x00800109                snoozeDuration
+ .data.hour     0x0080010b        0x2 EADOGL128.o
+                0x0080010b                hour
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x0080010b       0x3d EADOGL128.o
-                                 0x3e (size before relaxing)
+                0x0080010d       0x55 EADOGL128.o
  *(.gnu.linkonce.d*)
-                0x00800148                . = ALIGN (0x2)
-                0x00800148                _edata = .
-                0x00800148                PROVIDE (__data_end, .)
+                0x00800162                . = ALIGN (0x2)
+                0x00800162                _edata = .
+                0x00800162                PROVIDE (__data_end, .)
 
-.bss            0x00800148      0x4e1
-                0x00800148                PROVIDE (__bss_start, .)
+.bss            0x00800162      0x479
+                0x00800162                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  .bss.light_status
-                0x00800148        0x1 EADOGL128.o
-                0x00800148                light_status
+                0x00800162        0x1 EADOGL128.o
+                0x00800162                light_status
  .bss.minuteWidth
-                0x00800149        0x2 EADOGL128.o
-                0x00800149                minuteWidth
- .bss.hourWidth
-                0x0080014b        0x2 EADOGL128.o
-                0x0080014b                hourWidth
- .bss.old_selectedItem
-                0x0080014d        0x2 EADOGL128.o
-                0x0080014d                old_selectedItem
- .bss.btn_press_duration
-                0x0080014f        0x4 EADOGL128.o
-                0x0080014f                btn_press_duration
- .bss.btn_light_pushed
-                0x00800153        0x1 EADOGL128.o
-                0x00800153                btn_light_pushed
- .bss.btn_drehenc_pushed
-                0x00800154        0x1 EADOGL128.o
-                0x00800154                btn_drehenc_pushed
- .bss.rotary    0x00800155        0x2 EADOGL128.o
-                0x00800155                rotary
- .bss.menuOpen  0x00800157        0x1 EADOGL128.o
-                0x00800157                menuOpen
- .bss.alarm     0x00800158        0x1 EADOGL128.o
-                0x00800158                alarm
- .bss.timeAdvance
-                0x00800159        0x4 EADOGL128.o
-                0x00800159                timeAdvance
- .bss.timeUpdate
-                0x0080015d        0x2 EADOGL128.o
-                0x0080015d                timeUpdate
- .bss.timeXPos  0x0080015f        0x2 EADOGL128.o
-                0x0080015f                timeXPos
- .bss.alarm_minute
-                0x00800161        0x2 EADOGL128.o
-                0x00800161                alarm_minute
- .bss.alarm_hour
                 0x00800163        0x2 EADOGL128.o
-                0x00800163                alarm_hour
- .bss.seconds   0x00800165        0x2 EADOGL128.o
-                0x00800165                seconds
- .bss.minute    0x00800167        0x2 EADOGL128.o
-                0x00800167                minute
- .bss.hour      0x00800169        0x2 EADOGL128.o
-                0x00800169                hour
+                0x00800163                minuteWidth
+ .bss.hourWidth
+                0x00800165        0x2 EADOGL128.o
+                0x00800165                hourWidth
+ .bss.old_selectedItem
+                0x00800167        0x2 EADOGL128.o
+                0x00800167                old_selectedItem
+ .bss.btn_press_duration
+                0x00800169        0x4 EADOGL128.o
+                0x00800169                btn_press_duration
+ .bss.btn_light_pushed
+                0x0080016d        0x1 EADOGL128.o
+                0x0080016d                btn_light_pushed
+ .bss.btn_drehenc_pushed
+                0x0080016e        0x1 EADOGL128.o
+                0x0080016e                btn_drehenc_pushed
+ .bss.rotary    0x0080016f        0x2 EADOGL128.o
+                0x0080016f                rotary
+ .bss.menuOpen  0x00800171        0x1 EADOGL128.o
+                0x00800171                menuOpen
+ .bss.alarm     0x00800172        0x1 EADOGL128.o
+                0x00800172                alarm
+ .bss.timeAdvance
+                0x00800173        0x4 EADOGL128.o
+                0x00800173                timeAdvance
+ .bss.timeUpdate
+                0x00800177        0x2 EADOGL128.o
+                0x00800177                timeUpdate
+ .bss.timeXPos  0x00800179        0x2 EADOGL128.o
+                0x00800179                timeXPos
+ .bss.alarm_minute
+                0x0080017b        0x2 EADOGL128.o
+                0x0080017b                alarm_minute
+ .bss.alarm_hour
+                0x0080017d        0x2 EADOGL128.o
+                0x0080017d                alarm_hour
+ .bss.seconds   0x0080017f        0x2 EADOGL128.o
+                0x0080017f                seconds
+ .bss.minute    0x00800181        0x2 EADOGL128.o
+                0x00800181                minute
  *(COMMON)
- COMMON         0x0080016b      0x4be EADOGL128.o
-                0x0080016b                hakenSymb
-                0x008001f3                herzSymb
-                0x00800213                herzKleinOffenSymb
-                0x0080021d                light_sec_off
-                0x0080021f                herzKleinSymb
-                0x00800229                pixelMatrix
-                0x00800629                PROVIDE (__bss_end, .)
-                0x00003cba                __data_load_start = LOADADDR (.data)
-                0x00003d02                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800183      0x458 EADOGL128.o
+                0x00800183                hakenSymb
+                0x008001a5                herzSymb
+                0x008001c5                herzKleinOffenSymb
+                0x008001cf                light_sec_off
+                0x008001d1                herzKleinSymb
+                0x008001db                pixelMatrix
+                0x008005db                PROVIDE (__bss_end, .)
+                0x0000426e                __data_load_start = LOADADDR (.data)
+                0x000042d0                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800629        0x0
-                0x00800629                PROVIDE (__noinit_start, .)
+.noinit         0x008005db        0x0
+                0x008005db                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x00800629                PROVIDE (__noinit_end, .)
-                0x00800629                _end = .
-                0x00800629                PROVIDE (__heap_start, .)
+                0x008005db                PROVIDE (__noinit_end, .)
+                0x008005db                _end = .
+                0x008005db                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -858,38 +879,38 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x270
+.debug_aranges  0x00000000      0x2a0
  *(.debug_aranges)
  .debug_aranges
-                0x00000000      0x270 EADOGL128.o
+                0x00000000      0x2a0 EADOGL128.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x419a
+.debug_info     0x00000000     0x4a73
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000     0x419a EADOGL128.o
+ .debug_info    0x00000000     0x4a73 EADOGL128.o
 
-.debug_abbrev   0x00000000      0x463
+.debug_abbrev   0x00000000      0x4f8
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x463 EADOGL128.o
+ .debug_abbrev  0x00000000      0x4f8 EADOGL128.o
 
-.debug_line     0x00000000      0xd90
+.debug_line     0x00000000      0xf4b
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x00000000      0xd90 EADOGL128.o
+ .debug_line    0x00000000      0xf4b EADOGL128.o
 
-.debug_frame    0x00000000      0xbc0
+.debug_frame    0x00000000      0xc4c
  *(.debug_frame)
- .debug_frame   0x00000000      0xbc0 EADOGL128.o
+ .debug_frame   0x00000000      0xc4c EADOGL128.o
 
-.debug_str      0x00000000      0x87e
+.debug_str      0x00000000      0x908
  *(.debug_str)
- .debug_str     0x00000000      0x87e EADOGL128.o
-                                0x95e (size before relaxing)
+ .debug_str     0x00000000      0x908 EADOGL128.o
+                                0x9ef (size before relaxing)
 
-.debug_loc      0x00000000     0x40cd
+.debug_loc      0x00000000     0x44b7
  *(.debug_loc)
- .debug_loc     0x00000000     0x40cd EADOGL128.o
+ .debug_loc     0x00000000     0x44b7 EADOGL128.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -909,9 +930,9 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x3b8
+.debug_ranges   0x00000000      0x400
  *(.debug_ranges)
- .debug_ranges  0x00000000      0x3b8 EADOGL128.o
+ .debug_ranges  0x00000000      0x400 EADOGL128.o
 
 .debug_macro
  *(.debug_macro)

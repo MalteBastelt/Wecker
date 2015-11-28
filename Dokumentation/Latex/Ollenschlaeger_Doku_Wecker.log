@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.11.23)  6 NOV 2015 10:04
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.11.23)  26 NOV 2015 10:53
 entering extended mode
 **Ollenschlaeger_Doku_Wecker.tex
 
-(C:\Users\Malte\Documents\Studium\0_Master\3\DIY\Dokumentation\Latex\Ollenschla
-eger_Doku_Wecker.tex
+(C:\Users\Malte\Documents\Projekte\Wecker\Dokumentation\Latex\Ollenschlaeger_Do
+ku_Wecker.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -455,8 +455,8 @@ ference \hbox to\hsize {\normalfont \footnotesize \hfil \box \@tempboxa \hfil }
 \fi .
 \c@ContinuedFloat=\count99
 )
-(C:\Users\Malte\Documents\Studium\0_Master\3\DIY\Dokumentation\Latex\Ollenschla
-eger_Doku_Wecker.aux)
+(C:\Users\Malte\Documents\Projekte\Wecker\Dokumentation\Latex\Ollenschlaeger_Do
+ku_Wecker.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
 LaTeX Font Info:    ... okay on input line 13.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
@@ -509,8 +509,7 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 13.
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <24> not available
 (Font)              Font shape `T1/ptm/b/it' tried instead on input line 13.
-
-("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+ ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count100
 \scratchdimen=\dimen141
@@ -549,24 +548,34 @@ Underfull \hbox (badness 3098) in paragraph at lines 46--46
 [1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
- <C:/Users/Malte/Documents/Studium/0_Master/3/DIY/Dokumentation/Latex/Grafiken/
-Hierarchie.png (PNG copy)>]
+ <C:/Users/Malte/Documents/Projekte/Wecker/Dokumentation/Latex/Grafiken/Hierarc
+hie.png (PNG copy)>]
 
 LaTeX Warning: Reference `sc:Software:subsc:Bildkonverter' on page 2 undefined 
-on input line 87.
+on input line 107.
 
 [2]
-(C:\Users\Malte\Documents\Studium\0_Master\3\DIY\Dokumentation\Latex\Ollenschla
-eger_Doku_Wecker.aux)
+Underfull \hbox (badness 10000) in paragraph at lines 115--116
+[]\T1/ptm/m/n/10 EADOGL128.c: Es gibt meh-re-re Interrupt-Service-
+ []
+
+
+Underfull \hbox (badness 2726) in paragraph at lines 115--116
+\T1/ptm/m/n/10 der Main-Funktion neh-men. Im Nor-mal-zu-stand be-fin-det
+ []
+
+[3]
+(C:\Users\Malte\Documents\Projekte\Wecker\Dokumentation\Latex\Ollenschlaeger_Do
+ku_Wecker.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4358 strings out of 493921
- 65728 string characters out of 3147281
- 130193 words of memory out of 3000000
- 7612 multiletter control sequences out of 15000+200000
+ 4360 strings out of 493921
+ 65740 string characters out of 3147281
+ 134193 words of memory out of 3000000
+ 7614 multiletter control sequences out of 15000+200000
  112122 words of font info for 115 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  36i,6n,38p,1912b,263s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -580,9 +589,9 @@ cmsy7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Pro
 gram Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTe
 X 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
 /urw/times/utmri8a.pfb>
-Output written on Ollenschlaeger_Doku_Wecker.pdf (2 pages, 154015 bytes).
+Output written on Ollenschlaeger_Doku_Wecker.pdf (3 pages, 162331 bytes).
 PDF statistics:
- 51 PDF objects out of 1000 (max. 8388607)
+ 54 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

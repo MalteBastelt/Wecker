@@ -1,10 +1,7 @@
 /*
- * EA_DOGL128.c
- *
- * Created: 11.03.2015 11:27:58
- *  Author: Malte
- * 
- */ 
+Autor: Malte Ollenschläger
+Dieses Werk ist lizenziert unter einer Creative Commons Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz.
+*/ 
 
 //SUCHE NACH "PRÜFE"
 
@@ -12,18 +9,19 @@ int cnt = 0;
 
 #include "EADOGL128.h"
 
-int hour = 0;
+int hour = 14;
 int minute = 0;
 int seconds = 0;
 
 int alarm_hour = 0;
 int alarm_minute = 0;
 int snoozeDuration = 5;//Minuten
+uint8_t snoozeCounter = 1;
 
-int day=4;
-int month = 7;
-int year = 2016;
-int daysThisMonth = 30;
+int day=30;
+int month = 9;
+int year = 2015;
+int daysThisMonth = 31;
 
 int timeXPos = 0;
 int alarmXPos = 0;
@@ -50,7 +48,8 @@ int minuteWidth = 0;
 uint8_t herzSymb[32];
 uint8_t herzKleinSymb[HERZ_KLEIN_WIDTH];
 uint8_t herzKleinOffenSymb[HERZ_KLEIN_WIDTH];
-uint8_t hakenSymb[136];
+uint8_t hakenSymb[HAKEN_WIDTH];
+
 
 int light_sec_off;
 bool light_status = OFF;
@@ -59,17 +58,22 @@ bool light_status = OFF;
 int main(void)
 {
 	_delay_ms(1000); //Oszillator powerup
-	DDRB = 0xFF;//Ausgang
-	DDRB &= ~(1<<PORTB6);//Oszillator Eingänge
-	DDRB &= ~(1<<PORTB7);
+	DDRB = 0xFF;//Ausgang 
+	DDRB &= ~(1<<PORTB0);//Taster MP3Player
+	DDRB &= ~(1<<PORTB1);//LichtTaster
+	DDRB &= ~(1<<PORTB2);//Drehencoder D (Taster)
+	DDRB &= ~(1<<PORTB6);//Oszillator Eingang
+	DDRB &= ~(1<<PORTB7);//Oszillator
+	DDRC = 0xFF;//Ausgang
 	DDRD = 0xFF;//Ausgang
 	DDRD &= ~(1<<PORTD2);//Drehencoder A (INT0)
-	DDRD &= ~(1<<PORTD0);//Drehencoder B
-	DDRC = 0xFF;//Ausgang
-	DDRC &= ~(1<<PORTC0);//LichtTaster
-//	PORTC = 0xff;
-//	PORTB = 0xff;
-	//DDRC |= 1;//NUR TEST 
+	DDRD &= ~(1<<PORTD3);//Drehencoder B
+	DDRD &= ~(1<<PORTD5);//Taster MP3Player
+	DDRD &= ~(1<<PORTD6);//Taster MP3Player
+	DDRD &= ~(1<<PORTD7);//Taster MP3Player
+	
+
+
 	LCD_RST = 1;
 	LCD_CS = 1;
 	LCD_CLK = 1;
@@ -94,7 +98,7 @@ int main(void)
 				update_time();
 			}
 			if((hour == alarm_hour) && (minute == alarm_minute) && (alarm)){
-				wakeUp_Anja();
+				wakeUp_User();
 			}
 		}
 		if(btn_drehenc_pushed){
@@ -102,7 +106,7 @@ int main(void)
 			//Timer starten zum zählen
 			start_btnPress();
 			//warten, solange Taste gedrückt ist
-			while((PINC & (1<<PINC5)) && (btn_press_duration<BTN_PRESS_LONG)){_delay_ms(50);}//KANN DELAY WEGGELASSEN WERDEN?
+			while((PINB & (1<<PINB2)) && (btn_press_duration<BTN_PRESS_LONG)){_delay_ms(50);}//KANN DELAY WEGGELASSEN WERDEN?
 			//Zeitmessung beenden
 			stop_btnPress();
 			//falls länger als BTN_PRESS_LONG gedrückt wurde, Menü öffnen
@@ -114,7 +118,7 @@ int main(void)
 					herzKleinSymb[i] = pgm_read_byte(&herzKlein[0][i]);
 					herzKleinOffenSymb[i] = pgm_read_byte(&herzKleinOffen[0][i]);
 				}
-				for(int i=0; i<136; i++){
+				for(int i=0; i<HAKEN_WIDTH; i++){//PRÜFEN hakenSymb i<60
 					hakenSymb[i] = pgm_read_byte(&haken[0][i]);
 				}
 				menuOpen = true;
@@ -130,57 +134,58 @@ int main(void)
 	
 }
 
-ISR(PCINT1_vect){//Drehencoder wurde gedrückt
-		if((PINC & (1<<PINC5))){ //Schalter wurde gedrückt
+ISR(PCINT0_vect){//Drehencoder oder Lichtschalter wurde gedrückt
+		if((PINB & (1<<PINB2))){ //Drehencoder gedrückt
 			btn_drehenc_pushed = true;
 			if(light_status==ON){
 				light_sec_off = (seconds + LIGHT_ON_DURATION)%60;
 			}
-		} else {
-			if((PINC & (1<<PINC0))){
+		} 
+		if((PINB & (1<<PINB1))) {//Lichtschalter gedrückt
 				/*PORTC |= (1<<PORTC1);//Licht an
 				light_sec_off = (seconds + LIGHT_ON_DURATION)%60;
 				light_status = ON;*/
 				btn_light_pushed = true;
-			} else {
-				//einer der beiden Taster wurde losgelassen
-			}
 		}
 	}
-	
-ISR(INT0_vect){//Drehencoder wurde gedreht
-	int A = (PIND & (1<<PIND2));
-	int B = (PIND & (1<<PIND0));
-	if((A && B) || ((!A)&&(!B))) //A=B
+
+
+ISR(PCINT2_vect){
+	bool A = (PIND & (1<<PIND5));
+	bool B = (PIND & (1<<PIND6));
+	if(B==A)
 		rotary ++;
 	else
 		rotary --;
 	if(light_status==ON){
 		light_sec_off = (seconds + LIGHT_ON_DURATION)%60;
 	}
-}	
+	
+}	
+
+	
 ISR(TIMER2_OVF_vect) {//Quarz-Overflow (1s vorbei)
 	timeAdvance ++;//zählt wie viele Sekunden seit letzter Korrektur vorbei sind
 	//if( (timeAdvance>0) && (timeAdvance<137932) ){
 	//DAS HIER AN, FALLS timeAdvance = 1: 
-	if((timeAdvance != 137932) && increment ){ //nach 137932s ist Wecker 2s zu schnell
+	//if((timeAdvance != 137932) && increment ){ //nach 137932s ist Wecker 2s zu schnell FÜR MESSUNG AUSGESTELLT
 		seconds ++;
 		if( seconds == 60 ) {
 			timeUpdate++;
 			seconds = 0;
-			//PRÜFEN: hier muss Anja evtl. geweckt werden
+			//PRÜFEN: hier muss User evtl. geweckt werden
 		}
-	} else {
+	/*} else {
 		//timeAdvance = -1;//damit auch im nächsten Durchgang die Sekunden nicht inkrementiert werden, da insgesamt 2s zu schnell
 		// FOLGENDES WIRD DURCH timeAdvance = -1;, was eigentlich timeAdvance=1 ist. ersetzt: START 
 		if(increment) //ist zum ersten mal hier drin -> timeAdvance == 137932
 			increment = false;
 		else //zum zweiten Mal -> darf wieder nicht inkrementieren, weil insgesamt 2s zu schnell (hier noch 1s)
-			increment = true;
-			
-	}	
+			increment = true;	
+	}*///FÜR MESSUNG AUSGTESTELLT	
 	if( (light_status) && (seconds == light_sec_off) ){
-		PORTC &= ~(1<<PORTC1);//Licht ausschalten
+		//PORTC &= ~(1<<PORTC5);//Licht ausschalten
+		LCD_LED = 0;
 		light_status = OFF;
 	}
 }
@@ -191,8 +196,80 @@ ISR(TIMER0_OVF_vect){
 	btn_press_duration += 0.008192;	
 }
 
-void wakeUp_Anja(){
+void configureTimerAndInterrupts() {
+	//TIMER2 (Uhr)
+	ASSR |= (1<<AS2); //Activate asynchronous clock for Timer2
+	TCNT2 = 0; //set Timer2 counter = 0
+	TCCR2B |= (1<<CS22)|(1<<CS20); //Prescaler 128
+	TIMSK2 |= (1<<TOIE2); //Overflow-interrupt
 	
+	//TIMER1 (Druckdauer von Tasten messen)
+	TIMSK0 = (1<<TOIE0);//Overflow-Interrupt --> 8-bit, 255
+	
+	//Licht-Taster und Drehencoder-Taster
+	PCICR = (1<<PCIE0);//PCINT[7:0] enable
+	PCMSK0 = (1<<PCINT1);//Drücken von Lichtschalter
+	PCMSK0 |=(1<<PCINT2);//Drücken von Drehencoder
+
+	//Drehencoder drehen
+	PCICR |= (1<<PCIE2);//PCINT[23:16]
+	PCMSK2 = (1<<PCINT21);//Interrupt bei Pinänderung durch Drehung Drehencoder
+	//PCMSK2 |=(1<<PCINT22);
+}
+
+void wakeUp_User(){
+	mute_on();//Verstärker muten, damit kein Knack beim Einschalten entsteht
+	mp3Player_on();
+	_delay_ms(10000);//warten bis mp3Player an ist
+	amp_on();
+	if(snoozeCounter == 0){
+		next_song();
+	}
+	mute_off();
+	play_pause();//Play
+	bool user_awake = false;
+	
+	goodNight();
+	if(snoozeCounter==0){
+		if(btn_light_pushed){
+			//while(!btn_light_pushed){_delay_ms(100);}
+			start_btnPress();
+			while((PINB & (1<<PINB1)) && (btn_press_duration<BTN_PRESS_LONG)){_delay_ms(50);}
+			stop_btnPress();
+			if(btn_press_duration>=BTN_PRESS_LONG){
+				user_awake = true;
+				snoozeCounter = 0;
+			} else {
+				snooze();
+				snoozeCounter = 1;
+			}
+		} else {
+			snooze();
+			snoozeCounter = 1;
+		}
+	} else {
+		while(!user_awake){
+			goodNight();
+			start_btnPress();
+			while((PINB & (1<<PINB1)) && (btn_press_duration<BTN_PRESS_LONG)){_delay_ms(50);}
+			stop_btnPress();
+			if(btn_press_duration>=BTN_PRESS_LONG){
+				user_awake = true;
+				snoozeCounter = 0;
+			}
+		}
+	}
+	play_pause();//Pause
+	mute_on();
+	mp3Player_off();
+	amp_off();
+	
+
+}
+
+void snooze(){
+	alarm_hour = hour % 24;
+	alarm_minute = minute + snoozeDuration % 60;
 }
 
 void check_light(){
@@ -200,7 +277,7 @@ void check_light(){
 		//Timer starten zum zählen
 		start_btnPress();
 		//warten, solange Taste gedrückt ist
-		while((PINC & (1<<PINC0)) && (btn_press_duration<BTN_PRESS_LONG)){_delay_ms(50);}//KANN DELAY WEGGELASSEN WERDEN?
+		while((PINB & (1<<PINB1)) && (btn_press_duration<BTN_PRESS_LONG)){_delay_ms(50);}//KANN DELAY WEGGELASSEN WERDEN?
 		//Zeitmessung beenden
 		stop_btnPress();
 		//falls länger als BTN_PRESS_LONG gedrückt wurde, Alarm toggeln
@@ -208,7 +285,8 @@ void check_light(){
 			alarm = !alarm;
 			print_stdDisplay();
 		} else {
-			PORTC |= (1<<PORTC1);//Licht an
+			//PORTC |= (1<<PORTC5);//Licht an
+			LCD_LED = 1;
 			light_sec_off = (seconds + LIGHT_ON_DURATION)%60;
 			light_status = ON;
 		}
@@ -264,7 +342,7 @@ int get_menuSelection(int numItems, int selectedItem){
 			sei();
 			selectedItem = selectedItem % (numItems+1);
 			if(selectedItem < 0){
-				selectedItem += numItems;
+				selectedItem += numItems+1;
 			}
 			print_menuSelection(selectedItem, numItems);
 			update_LCD();
@@ -285,7 +363,8 @@ void show_mainMenu(bool herkunft){
 		item = 0;
 	//else
 	//	item = 3;
-	while(item<4){	
+	bool stayOpened = true; //wird benötigt um Rückgabewert aus Menu2 zu speichern
+	while((item<4) && (stayOpened == true)){	
 		//while(item < 3){
 			print_menuItems("Weckzeit", "Uhrzeit", "Datum", ". . .");
 			update_LCD();
@@ -294,7 +373,7 @@ void show_mainMenu(bool herkunft){
 				case 0: set_alarm(); break;
 				case 1: set_time(TIME_TYPE); break;
 				case 2: set_date(); break;
-				case 3: show_mainMenu2();; break;
+				case 3: stayOpened = show_mainMenu2(); break;
 				case 4: print_stdDisplay(); break;
 				default: print_stdDisplay(); break;
 			}
@@ -305,24 +384,26 @@ void show_mainMenu(bool herkunft){
 	}
 }
 
-void show_mainMenu2(){
+bool show_mainMenu2(){
 	int item = 1;
-	while((item > 0) && (item<3)){
-		print_menuItems(". . .","Snoozedauer"/*, "Audio"*/, "Boombox", "");
+	while((item > 0) && (item<4)){
+		print_menuItems(". . .","Snoozedauer", "Lautstärke", "Boombox");
 		update_LCD();
-		item = get_menuSelection(3, item);
+		item = get_menuSelection(4, item);
 		switch (item) {
 			case 0: /*show_mainMenu();*/ break;
 			case 1: set_snoozeDuration(); break;
-			/*case 2: set_audio(); break;*/
-			case 2: boombox(); break;
-			case 3: print_stdDisplay(); break;
+			case 2: set_audio(); break;
+			case 3: boombox(); break;
+			case 4: print_stdDisplay(); break;
 			default: print_stdDisplay(); break;
 		}
 	}
-	/*if(item == 0){
-		show_mainMenu();
-	}*/
+	if(item == 0){
+		return true;
+	} else {
+		return false;
+	}
 }
 
 
@@ -451,6 +532,7 @@ void set_time(bool timeType){
 						cli();
 						TCNT2 = 0;
 						timeAdvance = 0;
+						timeUpdate = 0;
 						sei();
 						break;
 			}
@@ -651,7 +733,7 @@ int get_dateXPos() {
 
 
 void print_menuSelection(int item, int numItems){
-	remove_menuSelection(old_selectedItem);
+	remove_menuSelection(old_selectedItem, numItems);
 	
 	if(item<numItems){
 		print_symbol(16,16, herzSymb,2,2+item*15);
@@ -662,8 +744,8 @@ void print_menuSelection(int item, int numItems){
 	old_selectedItem = item;
 }
 
-void remove_menuSelection(int item){
-	if(item < 4){
+void remove_menuSelection(int item, int numItems){
+	if(item < numItems){
 		for(int x = 0; x<19; x++){
 			for(int y = 0; y<64; y++)
 				reset_pixel(x,y);
@@ -721,28 +803,7 @@ void print_ASCIIString(int xStart, int yPos, int* string, int size){
 		TCCR0B = 0; //TIMER0 aus
 	}
 	
-	void configureTimerAndInterrupts() {
-		//TIMER2 (Uhr)
-		ASSR |= (1<<AS2); //Activate asynchronous clock for Timer2
-		TCNT2 = 0; //set Timer2 counter = 0
-		TCCR2B |= (1<<CS22)|(1<<CS20); //Prescaler 128
-		//OCR2A = 255;
-		//TCCR2A |= (1<<WGM21); //Waveform mode: CTC
-		TIMSK2 |= (1<<TOIE2); //Overflow-interrupt
-		//while(!(PINC & (1<<PINC5))){_delay_us(1);} //TEST UM UHR MITTELS TASTER ZU STARTEN
-		//TCNT2 = 0;
-		
-		//TIMER1 (Druckdauer von Tasten messen)
-		TIMSK0 = (1<<TOIE0);//Overflow-Interrupt --> 8-bit, 255
-		
-		//Interrupts enablen
-		EIMSK = (1<<INT0);//Interrupt an INT0 aktivieren (PD2 = Drehencoder)
-		EICRA = (1<<ISC00);//Spezifizieren: Jede Änderung an PD2 löst Interrupt aus PRÜFEN OB KORREKT ODER NUR FALLEND/STEIGEND?
-		
-		PCICR = (1<<PCIE1);//PCINT[14:8] enable für PCINT13 
-		PCMSK1 = (1<<PCINT13);//PCINT13 löst Interrupt bei drücken von Drehencoder aus
-		PCMSK1 |=(1<<PCINT8);
-}
+	
 	
 	bool check_TimeUpdate() {
 		cli();
@@ -1029,6 +1090,7 @@ void print_ASCIIString(int xStart, int yPos, int* string, int size){
 				//Sonderzeichen
 				switch((int)string[i]){
 					case 252: index=55; break;//ü
+					case 228: index=52;break; //ä
 					case 46:  index=54; break;//.
 					case 32:  index=-1; break;//Leerzeichen
 					default: index = -1;
@@ -1130,7 +1192,73 @@ void set_snoozeDuration(){
 
 
 void set_audio(){
-	
+	btn_drehenc_pushed = false;
+	int item = 0;
+	clear_pixelMatrix();
+	clear_LCD();
+	print_symbol(16,17, hakenSymb,108,46);
+	int warte_ASCII [strlen("Bitte warten")];
+	convertString("Bitte warten", warte_ASCII);
+	print_ASCIIString(20,16, warte_ASCII, sizeof(warte_ASCII)/sizeof(warte_ASCII[0]));
+	update_LCD();
+	mp3Player_on();
+	play_pause();
+	//Speaker-Symbol es EEPROM holen
+	uint8_t speakerSymb[SPEAKER_WIDTH];
+	for(int i=0; i<SPEAKER_WIDTH; i++){
+		speakerSymb[i] = pgm_read_byte(&speaker[0][i]);
+	}
+	clear_pixelMatrix();
+	clear_LCD();
+	print_symbol(16,17, hakenSymb,108,46);
+	print_symbol(24,31,speakerSymb,(128-31)/2,(64-24)/2);
+	while(item!=1){
+		while(!btn_drehenc_pushed){
+			item+=rotary;
+			item=item%2;
+			if(item<0)
+			item+=2;
+			rotary = 0;
+			if(item == 0){
+				print_symbol(8,HERZ_KLEIN_WIDTH,herzKleinSymb,64-4, 2);
+				for(int x = 92; x<92+16; x++){
+					for(int y = 2+3*15; y<64; y++)
+					reset_pixel(x,y);
+				}
+				} else {
+				print_symbol(16,16, herzSymb, 92, 2+3*15);
+				for(int x = 64-8; x<64+8; x++){
+					for(int y = 2; y<11; y++)
+					reset_pixel(x,y);
+				}
+			}
+			update_LCD();
+			goodNight();
+			check_light();
+		}
+		btn_drehenc_pushed = false;
+		for(int x = 64-8; x<64+8; x++){
+			for(int y = 2; y<11; y++)
+			reset_pixel(x,y);
+		}
+		if(item==0){
+			print_symbol(8,HERZ_KLEIN_WIDTH,herzKleinOffenSymb,64-HERZ_KLEIN_WIDTH/2, 2);
+			update_LCD();
+			btn_drehenc_pushed = false;
+			while(!btn_drehenc_pushed){
+				if(rotary>0){
+					volume(UP);
+					rotary = 0;
+				} else {
+					volume(DOWN);
+					rotary = 0;
+				}
+				goodNight();
+				check_light();
+			}
+			btn_drehenc_pushed = false;
+		}
+	}
 }
 
 void boombox(){
