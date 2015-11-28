@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP TDA7266_v4
+D Single 100W Audio Power Amplifier, with Mute and Standby Mode, MultiWatt15H
+K TDA7294 Amplifier Single 100W
+F http://www.st.com/internet/com/TECHNICAL_RESOURCES/TECHNICAL_LITERATURE/DATASHEET/CD00000017.pdf
+$ENDCMP
+#
+#End Doc Library

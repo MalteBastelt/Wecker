@@ -1,4 +1,4 @@
-update=28.10.2015 21:13:34
+update=27.11.2015 13:38:03
 version=1
 last_client=kicad
 [pcbnew]
@@ -27,7 +27,7 @@ NetIExt=net
 version=1
 [eeschema]
 version=1
-LibDir=../Hauptplatine.pretty
+LibDir=../Hauptplatine.pretty;../library;../modules;F:/;F:/Basteln;../../KiCAD
 [eeschema/libraries]
 LibName1=power
 LibName2=device
