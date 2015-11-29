@@ -8,6 +8,7 @@
 \usepackage{booktabs} %Tabellen
 \usepackage{caption}
 \usepackage{amsmath}
+\usepackage{epstopdf}
 \date{\today}
 \author{Malte~Ollenschläger}
 \title{DIY: Herstellung eines personalisierten Weckers mit Mikrocontroller und mp3-Player}
@@ -23,9 +24,9 @@
 
 \section{Einleitung}
 	\IEEEPARstart{D}{ie} Gesamtfunktion des Weckers setzt sich aus mehreren Teilfunktionen zusammen. Eine der grundlegenden Funktionen ist die \textit{Anzeige der Uhrzeit} auf einem Display. Weiterhin wird das \textit{Datum} durch die Zusammensetzung des aktuelle Monats als Wort und des Tages als Ordinalzahl angezeigt. % An ausgewählten Tagen, wie zum Beispiel dem der Besitzerin soll das Display anstatt des Datums eine andere \textit{Zeichenkette oder ein Bild} anzeigen.
-	Ein weiteres Symbol gibt an, ob der \textit{Alarm ein- oder ausgeschaltet} ist. Das \textit{Umschalten} funktioniert durch das Gedrückthalten eines Tasters, über den gleichzeitig bei kurzem Drücken die \textit{Displaybeleuchtung} (UND DER FRONTPLATTE) eingeschaltet werden kann. Die Implementierung der \textit{Weckfunktion} sorgt bei eingeschaltetem Alarm dafür, dass zur konfigurierten Uhrzeit der mp3-Player gestartet und eine sich auf selbigem befindliche mp3-Datei abgespielt wird. Beim nächsten Weckruf wird die darauf folgende Datei abgespielt.\par
+	Ein weiteres Symbol gibt an, ob der Alarm ein- oder ausgeschaltet ist. Das Umschalten funktioniert durch das Gedrückthalten eines Tasters, über den gleichzeitig bei kurzem Drücken die Displaybeleuchtung und die Beleuchtung der Bilder eingeschaltet werden kann. Die Implementierung der Weckfunktion sorgt bei eingeschaltetem Alarm dafür, dass zur konfigurierten Uhrzeit der mp3-Player gestartet und eine sich auf selbigem befindliche mp3-Datei abgespielt wird. Beim nächsten Weckruf wird die darauf folgende Datei abgespielt.\par
 
-	Über ein \textit{Menü}, das über das Bedienen eines zweiten Tasters zu erreichen ist, sind folgende Elemente einstellbar:
+	Über ein Menü, das über das Bedienen eines zweiten Tasters zu erreichen ist, sind folgende Elemente einstellbar:
 	\begin{itemize}[leftmargin=20mm]
 	\item Uhrzeit
 	\item Weckzeit
@@ -34,9 +35,10 @@
 	\item Boombox
 %	[$\blacktriangleright$]
 	\end{itemize}
-	Innerhalb des Menüs findet die Navigation über einen Drehencoder statt.	Bei der Einstellung des Datums wird neben Tag und Monat auch das Jahr abgefragt. Dies dient der \textit{Erkennung von Schaltjahren}, damit in diesen in der Datumsanzeige auf den 28. Februar statt dem 1. März der 29. Februar folgt. Mit dem Menüpunkt "Lautstärke"\ lässt sich eben diese des mp3-Players und damit die \textit{Lautstärke des Wecktons} verändern. Wird der Menüpunkt "Boombox"\ ausgewählt, so kann über ein Cinch-Kabel eine \textit{externe Audio-Quelle} angeschlossen werden und die darauf abgespielte Musik wird über die Lautsprecher des Weckers wiedergegeben. In dieser Zeit ist die Weckfunktion außer Kraft gesetzt.\par
-	Die Personalisierung des Weckers wird durch drei Eigenschaften erreicht. Die erste ist die Tatsache, dass die Weckmusik nach dem eigenen Geschmack angepasst werden kann, indem diese auf den mp3-Player kopiert wird. Die zweite personalisierte Eigenschaft ist, dass beispielsweise an Valentinstag und am Geburtstag der Person statt des Datums andere Bilder oder Texte eingeblendet werden. Der offensichtlichste Teil der Personalisierung liegt in der Herstellung des Gehäuses. In die Front des Weckers werden Motive zu denen die Benutzerin einen persönlichen Bezug hat geschnitten. Diese werden zusätzlich zum Display beleuchtet, wenn der entsprechende Taster betätigt wird.
-	Als Vorlage für dieses Projekt diente ein ebenfalls selbst hergestellter Wecker, der auf der Internetseite www.wiesolator.de vorgestellt wurde. 
+	Innerhalb des Menüs findet die Navigation über einen Drehencoder statt.	Bei der Einstellung des Datums wird neben Tag und Monat auch das Jahr abgefragt. Dies dient der Erkennung von Schaltjahren, damit in diesen in der Datumsanzeige auf den 28. Februar statt dem 1. März der 29. Februar folgt. Mit dem Menüpunkt "Lautstärke"\ lässt sich eben diese des mp3-Players und damit die Lautstärke des Wecktons verändern. Wird der Menüpunkt "Boombox"\ ausgewählt, so kann über ein Cinch-Kabel eine externe Audio-Quelle angeschlossen werden und die darauf abgespielte Musik wird über die Lautsprecher des Weckers wiedergegeben. In dieser Zeit ist die Weckfunktion außer Kraft gesetzt.\par
+	Die Personalisierung des Weckers wird durch drei Eigenschaften erreicht. Die erste ist die Tatsache, dass die Weckmusik nach dem eigenen Geschmack angepasst werden kann, indem diese auf den mp3-Player kopiert wird. Die zweite personalisierte Eigenschaft ist, dass beispielsweise an Valentinstag und am Geburtstag der Person statt des Datums andere Bilder oder Texte eingeblendet werden. Der offensichtlichste Teil der Personalisierung liegt in der Herstellung des Gehäuses. In die Front des Weckers werden Motive zu denen die Benutzerin einen persönlichen Bezug hat, geschnitten. Diese werden zusätzlich zum Display beleuchtet, wenn der entsprechende Taster betätigt wird.
+	Als Vorlage für dieses Projekt diente ein ebenfalls selbst hergestellter Wecker, der auf der Internetseite www.wiesolator.de vorgestellt wurde.\par
+	
 \section{Hardware}
 	In diesem Abschnitt wird die genutzte Hardware erläutert. Hierzu wird in Teil \ref{sc:Hardware:subsc:Bauteile} beschrieben, welche Bauteile benötigt werden. Der sich anschließende Teil \ref{sc:Hardware:subsc:Dimensionierung} befasst sich mit der externen Beschaltung der Bauteile. In \ref{sc:Hardware:subsc:Platinen} wird auf die Planung und Fertigung der Platinen eingegangen.
 	\subsection{Bauteile}
@@ -51,7 +53,7 @@
 		\begin{center}
 			\begin{tabular}{rl}
 				\toprule
-				Funktionseinheit & Herstellerbezeichnung \\
+				Funktionseinheit & Bezeichnung \\
 				\midrule
 				Buchsenleiste & EBLG-20-1-X\\
 				Display & EA DOGL128W-6 \\
@@ -76,7 +78,10 @@
 		\end{center}
 		Neben dieser Hardware werden Spanplatten zur Fertigung des Gehäuses, sowie einige Schrauben benötigt.
 
-	\subsection{Gehäuse}	
+	\subsection{Gehäuse}
+	\label{sc:Hardware:subsc:Gehäuse}
+	In die vier Ecken der Platine werden Löcher gebohrt, ebenso im gleichen Abstandsmaß in die Front des Weckers. Anschließend kann die Platine per Schraube und Mutter von innen gegen das Gehäuse gedrückt werden, sodass das Display fixiert ist und durch die rechteckige Öffnung in der Front des Gehäuses betrachtet werden kann.
+		
 		\subsection{Dimensionierung}
 			\label{sc:Hardware:subsc:Dimensionierung}
 			Grundsätzlich wurden die in den Datenblättern empfohlenen Kondensatoren und Widerstände eingesetzt. Zum Entprellen der Taster sind in den entsprechenden Datenblättern keine Informationen vorhanden. Es werden Keramikkondensatoren der Größe $C=100 nF$ genutzt. Bei dem Spannungsregler für den mp3-Player (LM317) muss eine individuelle Dimensionierung vorgenommen werden, da der Ausgang des gewählten Spannungsreglers variable Spannungen erzeugen kann.
@@ -109,9 +114,9 @@
 		\subsection{Gehäuse}
 	\subsection{Platinen}
 		\label{sc:Hardware:subsc:Platinen}
-		Die für dieses Projekt benötigten Platinen wurden mit KiCAD geplant und anschließend im FabLab der Friedrich-Alexander-Universität Erlangen-Nürnberg erstellt. Eine Platine ist für das Display und die zugehörigen Bauelemente (Kondensatoren, Widerstände) ausgelegt. Über einen Steckverbinder kann diese Platine mit einer zweiten verbunden werden, welche die anderen Bauelemente wie zum Beispiel den Mikrocontroller und den Audio-Verstärker enthält. \par
-		Für die Displayplatine wurden die Anschlüsse des Displays nicht direkt auf der Platine verlötet. Es wurden Buchsenleisten verlötet in welche das Display samt verlöteter Hintergrundbeleuchtung eingesteckt wird. Dies dient einerseits dazu, dass das Display zum Wechsel oder zur Reparatur ausgebaut werden kann; andererseits dazu, dass der Abstand zwischen Gehäuseinnenseite und Platine vergrößert wird. Dies ist notwendig, damit der Drehencoder, welcher auf der Platine befestigt wird, nicht zu weit nach vorne aus dem Gehäuse herausragt. Außerdem dient es der Herstellung einer kraftschlüssigen Verbindung. In die vier Ecken der Platine werden Löcher gebohrt, ebenso im gleichen Abstandsmaß in die Front des Weckers. Anschließend kann die Platine per Schraube und Mutter von innen gegen das Gehäuse gedrückt werden, sodass das Display fixiert ist und durch die rechteckige Öffnung in der Front des Gehäuses betrachtet werden kann. Für die Erstellung der Platine wurde eine Leiterbahnbreite von $0,5mm$ gewählt, da genug Fläche vorhanden war.\par
-		Für die Hauptplatine wurde ebenfalls eine Leiterbahnbreite von $0,5mm$ gewählt. Neben der Displayplatine wurden weitere Bauelemente per Steckverbinder mit der Platine verbunden. Diese sind:
+		Die für dieses Projekt benötigten Platinen wurden mit KiCAD geplant und anschließend im FabLab der Friedrich-Alexander-Universität Erlangen-Nürnberg erstellt. Die erste Platine konnte nicht verwendet werden, da das ausgedruckte Layout nicht den tatsächlichen Dimensionen entsprach. Die Ursache hierfür liegt vermutlich im Export des Schaltplans in eine PDF-Datei. Korrekte Maße bleiben nur Erhalten, wenn in eine PostScript-Datei anstatt in ein PDF exportiert wird.\par Eine Platine ist für das Display und die zugehörigen Bauelemente (Kondensatoren, Widerstände) ausgelegt. Über einen Steckverbinder kann diese Platine mit einer zweiten verbunden werden, welche die anderen Bauelemente wie zum Beispiel den Mikrocontroller und den Audio-Verstärker enthält. \par
+		Für die Displayplatine wurden die Anschlüsse des Displays nicht direkt auf der Platine verlötet. Es wurden Buchsenleisten verlötet in welche das Display samt verlöteter Hintergrundbeleuchtung eingesteckt wird. Dies dient einerseits dazu, dass das Display zum Wechsel oder zur Reparatur ausgebaut werden kann; andererseits dazu, dass der Abstand zwischen Gehäuseinnenseite und Platine vergrößert wird. Dies ist notwendig, damit der Drehencoder, welcher auf der Platine befestigt wird, nicht zu weit nach vorne aus dem Gehäuse herausragt. Außerdem dient es der Herstellung einer kraftschlüssigen Verbindung zwischen Display und Gehäuse (siehe \ref{sc:Hardware:subsc:Gehäuse}).  Für die Erstellung der Platine wurde eine Leiterbahnbreite von $0,5mm$ gewählt, da genug Fläche vorhanden war.\par
+		Für die Hauptplatine wurde ebenfalls eine Leiterbahnbreite von $0,5mm$ gewählt. Neben der Displayplatine wurden weitere Bauelemente per Steckverbinder mit der Hauptplatine verbunden. Diese sind:
 		\begin{itemize}
 			\item Lautsprecher
 			\item Taster
@@ -119,20 +124,45 @@
 			\item LED-Beleuchtung (Bilder)
 			\item mp3-Player
 		\end{itemize}
+		Bei der Erstellung des PCB-Layouts wurde nicht durchgängig die Anordnung der Bauteile auf dem Schaltplan beachtet. Eine Vorsortierung in Bauteilgruppen erleichtert das Routing und ist somit ratsam.
 	\subsection{Pinbelegung Mikrocontroller}
 		\label{sc:Hardware:subsc:Pinbelegung}
-		Da es für den Oszillator keine Auswahlmöglichkeiten bezüglich der Pinbelegung gibt, wurden ihm als erstes die entsprechenden Pins zugewiesen. Die Pins für das Displays wurden so gewählt, dass alle nebeneinander liegen, damit das Layout der Platine erleichtert wird und lediglich gerade Leiterbahnen zwischen den Pins des Mikrocontrollers und dem betreffenden Steckverbinder erstellt werden müssen. Gleiches gilt für die Belegung der Pins zur Ansteuerung des mp3-Players.\par
+		Da es für den Oszillator keine Auswahlmöglichkeiten bezüglich der Pinbelegung gibt, wurden ihm als erstes die entsprechenden Pins am Mikrocontroller zugewiesen. Die Pins für den Anschluss des Displays wurden so gewählt, dass alle nebeneinander liegen, damit das Layout der Platine erleichtert wird und lediglich gerade Leiterbahnen zwischen den Pins des Mikrocontrollers und dem betreffenden Steckverbinder erstellt werden müssen. Gleiches gilt für die Belegung der Pins zur Ansteuerung des mp3-Players.\par
 		Die Auswahl für die Belegung der Taster unterliegt lediglich der Einschränkung, dass die Taster (Licht und Drehencoder) einem anderen Interrupt zugeordnet werden als eine Drehung des Drehencoders. Dies führt zu einer vereinfachten Auswertung der Drehrichtung, siehe \ref{sc:Software:subsc:Atmel-Code}.
-		
-		
+	\subsection{Ansteuerung mp3-Player}
+		\label{sc:Hardware:subsc:mp3-Player}
+		Um ein Bild davon zu bekommen, wie die Steuerung des mp3-Players funktioniert, wurde dieser zunächst aus seinem Gehäuse ausgebaut. Durch Testen wurde die Funktionsweise der benötigten Taster simuliert.  In Abb. \ref{fig:mp3-Player} ist eine Zeichnung des mp3-Players dargestellt, die zum näheren Verständnis des folgenden Textes herangezogen werden kann.\par 
+		Der silberne Steuerknopf hat auf zwei gegenüberliegenden Seiten je 3 Kontakte. Darüber liegt rings um diesen Knopf unterhalb der Plastikabdeckung eine Massefläche. Wird der Knopf in eine bestimmte Richtung bewegt, so werden zwei der 6 Pins auf Masse gezogen und daraus resultiert ein Steuersignal. Welches Ereignis durch die Kombination der verschiedenen Pins ausgelöst wird, ist in Tabelle \ref{tab:mp3-Player} dokumentiert. Zur Betätigung des Ein- und Ausschalters, der bei kurzem Drücken für Play/Pause genutzt wird, muss eine der vier Lötstellen auf das Level $1,5V$ gehoben werden. Der Taster weist vier Lötstellen auf. Davon befinden sich zwei auf Oberseite und zwei in Richtung Mitte der Platine. Von letzteren muss die Lötstelle, welche in Richtung der $3,5mm$-Klinken-Buchse liegt, auf 1,5V angehoben werden. Um das $3,3V$ Schaltsignal des Mikrocontrollers auf $1,5V$ für den mp3-Player zu verringern, wurden 3 Dioden vom Typ 1N4448 in Reihe zwischen den Ausgang des Mikrocontrollers und den betreffenden Konnektor zum mp3-Player geschaltet. Über den Dioden fällt jeweils etwa $0,6V$ ab, sodass $3,3V-3\cdot0,6V = 1,5V$ an dem Taster anliegen, wenn der Pin des Mikrocontrollers auf $3,3V$ gesetzt ist.
+		\begin{center}
+			\begin{tabular}{cccc}
+				\toprule
+				Pin A & Pin B & Level & Ereignis \\
+				\midrule
+				1 & 5 & 0V & Song wechseln\\
+				3 & 5 & 0V & Lautstärke -\\
+				4 & 5 & 0V & Lautstärke +\\
+				On-1 & -& 1,5V & Ein/Aus, Play/Pause\\
+				\bottomrule		
+			\end{tabular}
+			\captionof{table}{Tastenkombination für Auslösung verschiedener Ereignisse}
+			\label{tab:mp3-Player}
+		\end{center}
+		\begin{figure}
+			\begin{center}
+				\label{fig:mp3-Player}
+				\includegraphics[width=5cm]{./Grafiken/mp3Player.eps}
+				\caption{Transistorschaltung zur Ansteuerung von LEDs}
+			\end{center}
+		\end{figure}	
 \section{Software}
-	Um die gewünschten Inhalte auf dem LCD-Display anzuzeigen, müssen diese Elemente zunächst generiert werden. Dies geschah mittels eines Java-Programms, welches in Abschnitt \ref{sc:Software:subsc:Bildkonverter} beschrieben wird. Der zweite Abschnitt befasst sich mit dem umfangreicheren Code, der auf dem Mikrocontroller eingesetzt wird.
-	\subsection{Bildkonverter}
-		\label{sc:Software:Subsc:Bildkonverter}
-		Zunächst werden Dateien mit einzelnen Buchstaben, Symbolen und Bildern in Inkscape erstellt. In Schriftgröße 18 gibt ein zentrierter Großbuchstabe \textit{J} die vertikale Position aller weiteren Buchstaben vor, da dies der höchste Buchstabe ist. Die erstellte Grafik wird als \textit{*.png} exportiert und dem Java-Programm zugeführt. Dieses trägt den Namen \textit{Bildkonverter}. Wird es geöffnet, sind drei Buttons und ein Eingabefeld zu sehen. Über \textit{Datei wählen} wird das zu verarbeitende Bild ausgewählt. Die Umwandlung startet durch Klicken des entsprechenden Buttons. Zunächst wird durch Auswertung des Rotkanals jedes Pixels ein Binärwert erzeugt. Ist dieser größer oder gleich der angegebene Schwelle, so wird das entsprechende Pixel gesetzt. Ist es geringer als der Schwellwert, wird dieser Pixel auf null gesetzt. Anschließend werden jeweils 8 aufeinander folgende Pixel einer Spalte zu einem Hexadezimalwert zusammengefasst, um das Handling zu erleichtern. Wenn ein Bild eine Höhe von 16px hat und eine Breite von 3px, so werden 3 Mal zwei Hexadezimalwerte erzeugt. Diese sechs Werte werden in geschweiften Klammern ausgegeben, damit diese in einem Alphabet-Array im Code für den Mikrocontroller gespeichert werden können. Weiterhin wird eine Vorschau des Binärbildes angezeigt. So müssen die Daten nicht erst auf den Mikrocontroller überspielt und am LCD-Display angezeigt werden, um Fehler zu erkennen. Diese können beispielsweise durch Änderung des Schwellwertes oder durch das Setzen oder Löschen einzelner Pixel in dem Bild mittels Bildbearbeitungssoftware (zum Beispiel Paint) korrigiert werden. Zum Beenden des Konverters dient der Button \textit{Schließen}. Die Ausgabe befindet sich nun in einer Datei mit dem Namen \textit{Konverter-output.txt} in dem Ordner, in dem das Java-Programm gestartet wurde.\par
+	Um die gewünschten Inhalte auf dem LCD-Display anzuzeigen, müssen diese Elemente zunächst generiert werden. Dies geschah mittels Inkscape. Anschließend wurden diese Inhalte einen selbst geschriebenen Java-Programm zugeführt, welches in Abschnitt \ref{sc:Software:subsc:Bildkonverter} beschrieben wird. Der zweite Abschnitt befasst sich mit dem umfangreicheren Code, der auf dem Mikrocontroller eingesetzt wird.
+	\subsection{Bildkonversion}
+		\label{sc:Software:subsc:Bildkonverter}
+		Für die Entwicklung eines Bildkonverters in Java wurde Eclipse genutzt. Ziel ist die Umwandlung von grafischen Dateien in Binärcode, also ein monochrom Bild. Anschließend sollen jeweils 8 Binärwerte/Pixel zu einer Hexadezimalzahl zusammengefasst werden.\par 
+		Zunächst werden Dateien mit einzelnen Buchstaben, Symbolen und Bildern in Inkscape erstellt. In Schriftgröße 18 gibt ein zentrierter Großbuchstabe \textit{J} die vertikale Position aller weiteren Buchstaben vor, da dies der höchste Buchstabe ist. Die erstellte Grafik wird als \textit{*.png} exportiert und dem Java-Programm zugeführt. Dieses trägt den Namen \textit{Bildkonverter}. Wird es geöffnet, sind drei Buttons und ein Eingabefeld zu sehen. Über \textit{Datei wählen} wird das zu verarbeitende Bild ausgewählt. Die Umwandlung startet durch Klicken des entsprechenden Buttons. Zunächst wird durch Auswertung des Rotkanals jedes Pixels ein Binärwert erzeugt. Ist der Wert des Rotkanals größer oder gleich der angegebene Schwelle, so wird das entsprechende Pixel gesetzt. Ist es geringer als der Schwellwert, wird dieser Pixel auf null gesetzt. Anschließend werden jeweils 8 aufeinander folgende Pixel einer Spalte zu einem Hexadezimalwert zusammengefasst, um das Handling zu erleichtern. Wenn ein Bild eine Höhe von 16px hat und eine Breite von 3px, so werden 3 Mal zwei Hexadezimalwerte erzeugt. Diese sechs Werte werden in geschweiften Klammern ausgegeben, damit diese in einem Alphabet-Array im Code für den Mikrocontroller gespeichert werden können. Weiterhin wird eine Vorschau des Binärbildes angezeigt. So müssen die Daten nicht erst auf den Mikrocontroller überspielt und am LCD-Display angezeigt werden, um Fehler zu erkennen. Diese können beispielsweise durch Änderung des Schwellwertes oder durch das Setzen oder Löschen einzelner Pixel in dem Bild mittels Bildbearbeitungssoftware (zum Beispiel Paint) korrigiert werden. Zum Beenden des Konverters dient der Button \textit{Schließen}. Die Ausgabe befindet sich nun in einer Datei mit dem Namen \textit{Konverter-output.txt} in dem Ordner, in dem das Java-Programm gestartet wurde.\par
 	\subsection{Atmel-Code}
 	\label{sc:Software:subsc:Atmel-Code}
-	Der Code für den Mikrocontroller setzt sich aus verschiedenen Dateien zusammen. Die Hauptaufgabe übernimmt eine Endlosschleife in der Main-Funktion der Datei \emph{EADOGL128.c}. In \emph{EADOGL128\_commands.c} wurden die Befehle zur Ansteuerung des LCD-Displays implementiert. Um den mp3-Player und den Audio-Verstärker anzusprechen, werden die in \emph{mp3.c} erstellten Funktionen genutzt. Nicht selbst geschriebener Code wurde in Form von Standardbibliotheken wie \emph{avr/io.h} genutzt sowie in der Datei \emph{sbit.h} [QUELLE], welche es ermöglicht, Pins wie Variablen ansprechen zu können.
+	Der Code für den Mikrocontroller wurde zunächst in AtmelStudio 6.1 und anschließend in AtmelStudio 7.0 erstellt. Er setzt sich aus verschiedenen Dateien zusammen. Die Hauptaufgabe übernimmt eine Endlosschleife in der Main-Funktion der Datei \emph{EADOGL128.c}. In \emph{EADOGL128\_commands.c} wurden die Befehle zur Ansteuerung des LCD-Displays implementiert. Um den mp3-Player und den Audio-Verstärker anzusprechen, werden die in \emph{mp3.c} erstellten Funktionen genutzt. Nicht selbst geschriebener Code wurde in Form von Standardbibliotheken wie \emph{avr/io.h} genutzt sowie in der Datei \emph{sbit.h} [QUELLE], welche es ermöglicht, Pins wie Variablen ansprechen zu können.
 	
 	EADOGL128.c:
 	Es gibt mehrere Interrupt-Service-Routinen, die Einfluss auf die ausgeführten Aktionen in der Main-Funktion nehmen. Im Normalzustand befindet sich der Mikrocontroller im sleep-Modus. Um in diesen einzutreten sind einige Vorbereitungen notwendig, die in der Funktion \emph{goodNight} implementiert sind. Das Verlassen des sleep-Modus geschieht durch eines von mehreren möglichen Interrupts. Hierzu zählen die Bedienung des Drehencoders und des Tasters sowie ein Timer-Overflow aufgrund der Zeitmessung mittels Uhrenquarz. Dieser Overflow findet ein Mal pro Sekunde statt. Wenn sich auf dem LCD-Display durch das Zeit-Update nichts ändern muss (Sekunde<60), wird der sleep-Modus erneut aktiviert. \par
@@ -140,17 +170,26 @@
 	
 	Interrupt-Service Routinen:\\
 	Die ISR PCINT0\_vect setzt bei gedrückten Tasten das entsprechende Flag auf \emph{high}. Somit wird zum Beispiel das Einschalten des Lichts in der main-Funktion eingeleitet.
-	Gäbe es nur einen globalen Interrupt für alle Benutzereingaben, so müsste der letzte bekannte Status des Drehencoders gespeichert werden, damit überprüft werden kann, ob eine Änderung stattgefunden hat. Durch die Zuweisung der Signale, die bei einer Drehung verändert werden an eine andere ISR (PCINT2\_vect), als jener die bei Tastendruck aufgerufen wird (PCINT0\_vect), kann dieser Schritt eingespart werden. Die ISR (PCINT2\_vect) vergleicht den Status der beiden betreffenden Signale. Die Drehrichtung lässt sich daraus ermitteln, ob beide Signale gleich (beide \emph{high} oder beide \emph{low}) oder unterschiedlich sind. Je nach Ergebnis dieses Vergleichs wird bei einer detektierten Rechtsdrehung eine Zählvariable inkrementiert sowie bei Linksdrehung dekrementiert. Diese muss bei Abruf auf \emph{null} zurückgesetzt.\par 
+	Würde die Drehung des Drehencoders im gleichen Interrupt erfasst werden, so müsste der letzte bekannte Status des Drehencoders gespeichert werden, damit überprüft werden kann, ob eine Änderung stattgefunden hat, oder lediglich ein Taster bedient wurde. Durch die Zuweisung der Signale, die bei einer Drehung verändert werden an eine andere ISR (PCINT2\_vect), als jener die bei Tastendruck aufgerufen wird (PCINT0\_vect), kann dieser Schritt eingespart werden. Die ISR (PCINT2\_vect) vergleicht den Status der beiden betreffenden Signale. Die Drehrichtung lässt sich daraus ermitteln, ob beide Signale gleich (beide \emph{high} oder beide \emph{low}) oder unterschiedlich sind. Je nach Ergebnis dieses Vergleichs wird bei einer detektierten Rechtsdrehung eine Zählvariable inkrementiert sowie bei Linksdrehung dekrementiert. Diese muss bei Abruf auf \emph{null} zurückgesetzt werden.\par 
 	Bei eingeschalteter Beleuchtung bewirken alle Benutzereingaben eine Verlängerung der Leuchtdauer so, als ob der Taster für die Beleuchtung zu diesem Zeitpunkt betätigt wurde.\par
-	Die dritte ISR wird aufgerufen, wenn ein Overflow in dem vom Uhrenquarz getakteten Counter stattfindet. Da ein 8-bit Timer mit einem Prescaler von 128 genutzt wird, findet dieser Overflow ein Mal pro Sekunde statt. Hierbei wird die Variable \emph{sekunde} um eins inkrementiert. Wenn diese Variable den Wert $59$ übersteigt, wird ein Flag gesetzt, welches das Update der Minute und gegebenenfalls der Stunde sowie des Datums in der main-Funktion einleitet. Im gleichen Zug wird damit der Inhalt des LCD-Displays entsprechend verändert.\par
+	Die dritte ISR wird aufgerufen, wenn ein Overflow in dem vom Uhrenquarz getakteten Counter stattfindet. Da ein 8-bit Timer mit einem Prescaler von 128 zum Inkrementieren des Counters genutzt wird, findet dieser Overflow ein Mal pro Sekunde statt. Hierbei wird die Variable \emph{sekunde} um eins inkrementiert. Wenn diese Variable den Wert $59$ übersteigt, wird ein Flag gesetzt, welches das Update der Minute und gegebenenfalls der Stunde sowie des Datums in der main-Funktion einleitet. Im gleichen Zug wird damit der Inhalt des LCD-Displays entsprechend verändert.\par
 	Eine vierte ISR wird genutzt um die Dauer eines Tastendrucks zu ermitteln. Bei langem Drücken des Drehencoders wird so das Menü aufgerufen. So ist es mögich, dass der Taster für das Licht bei kurzem Drücken zum Einschalten der Beleuchtung und bei langem Drücken zum Ein-/Ausschalten des Alarms führt.
 	
-uC ohne sleep 6,53mA mit 1,03mA
-mit Spannungsregler3,3 und sleep 9,3 mA
-Folglich hat Spannungsregler 9,3-1,03= 8,2mA
-zusätzlich 1,5 Spannungsregler 9,51 mA --> macht 0,2mA
-das alles mit Display 9,83 --> Display 0,32mA
+%uC ohne sleep 6,53mA mit 1,03mA
+%mit Spannungsregler3,3 und sleep 9,3 mA
+%Folglich hat Spannungsregler 9,3-1,03= 8,2mA
+%zusätzlich 1,5 Spannungsregler 9,51 mA --> macht 0,2mA
+%das alles mit Display 9,83 --> Display 0,32mA
 
+\section{Bedienung}
+\subsection{Alarm}
+Um den Alarm ein- oder auszuschalten wird der Taster für mindestens $1,5s$ gedrückt. Ausschalten des Alarms sowie stoppen des Weckrufs geschieht durch Betätigung des Tasters von $1,5s$ oder mehr. Während des Weckrufs ist es außerdem möglich, in den snooze-Modus zu wechseln. Dies geschieht durch kurzes Drücken des Tasters oder Drehen des Drehencoders. Ein erneuter Weckeruf wird nach der im Menü eingestellten Snoozedauer (in Minuten) gestartet. Erneutes snoozen ist nicht möglich und der Weckruf muss über ein $1,5$-sekundiges Drücken des Tasters ausgeschaltet werden.
+\subsection{Menü}
+Das Menü kann über ein langes Drücken des Drehencoders aufgerufen werden. Navigiert wird über die Drehung desselben. Soll ein Punkt im Menü aufgerufen wird, so muss die Auswahl durch kurzes Drücken auf den Drehencoder getätigt werden. In Untermenüs wie beispielsweise der Uhrzeiteinstellung wird ebenfalls durch eine Drehung navigiert. Soll zum Beispiel die Stunde verändert werden, muss die Markierung über das entsprechende Element navigiert werden. Nach einer Bestätigung durch erneut kurzes Drücken ändert sich das Navigationssymbol und die Stunde der Uhrzeit kann verändert werden. Durch erneutes Drücken des Drehencoders wird dieser Modus verlassen. Das Untermenü kann über den angezeigten Haken verlassen werden.
+\subsection{Lautstärke}
+Für die Einstellung der Lautstärke des Weckrufs muss der entsprechende Unterpunkt im Menü aufgerufen werden. Daraufhin werden Verstärker und mp3-Player eingeschaltet. Letzterer benötigt etwa zehn Sekunden. Während dieser Zeit erscheint der Schriftzug \emph{\glqq Bitte warten\grqq}. Die Musik geht an und die Lautstärke kann mittels Drehencoder verstellt werden.
+\subsection{Boombox}
+Bei Auswahl des Menüpunktes Boombox, wird der Verstärker eingeschaltet. Nun kann über die auf der Platinen befindlichen Cinch-Buchsen und ein entsprechendes Kabel (z.B. $3,5mm$-Klinke $\leftrightarrow$ Cinch) eine externe Audioquelle wie ein Handy oder Laptop angeschlossen werden. Dessen Audiosignal wird dann über die Lautsprecher wiedergegeben.
 \section{Quellen}
 http://www.avrfreaks.net/sites/default/files/SBIT.H
 \end{document}
