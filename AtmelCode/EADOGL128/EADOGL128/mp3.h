@@ -10,8 +10,15 @@ Dieses Werk ist lizenziert unter einer Creative Commons Namensnennung - Nicht-ko
 #define MP3_T1 1
 #define MP3_T4 4
 #define MP3_T5 5
-#define PUSH_DURATION 60
+#define MP3_ONOFF 6
+#define AMP_MUTE 7
+#define AMP_STBY 8
+#define PUSH_DURATION 70
+#define PUSH_DURATION_LONG 5000
 
+void boot_amp();
+
+void shutdown_amp();
 
 void amp_on();
 
@@ -21,9 +28,9 @@ void mute_on();
 
 void mute_off();
 
-void mp3Player_on();
+void mp3Player_onoff();
 
-void mp3Player_off();
+//void mp3Player_off();
 
 void next_song();
 

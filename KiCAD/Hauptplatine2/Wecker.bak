@@ -1054,7 +1054,7 @@ Wire Wire Line
 Wire Wire Line
 	500  6775 500  7475
 Wire Wire Line
-	500  7475 950  7475
+	500  7475 1225 7475
 Connection ~ 650  7475
 Wire Wire Line
 	950  7475 950  7625
@@ -1519,4 +1519,13 @@ F 3 "" H 800 7075 60  0000 C CNN
 	1    800  7075
 	0    -1   -1   0   
 $EndComp
+Wire Wire Line
+	650  7375 650  7475
+Wire Wire Line
+	750  7375 750  7475
+Wire Wire Line
+	1125 7475 1125 7375
+Wire Wire Line
+	1225 7475 1225 7375
+Connection ~ 1125 7475
 $EndSCHEMATC

@@ -58,20 +58,27 @@ bool light_status = OFF;
 int main(void)
 {
 	_delay_ms(1000); //Oszillator powerup
-	DDRB = 0xFF;//Ausgang 
-	DDRB &= ~(1<<PORTB0);//Taster MP3Player
-	DDRB &= ~(1<<PORTB1);//LichtTaster
-	DDRB &= ~(1<<PORTB2);//Drehencoder D (Taster)
-	DDRB &= ~(1<<PORTB6);//Oszillator Eingang
-	DDRB &= ~(1<<PORTB7);//Oszillator
-	DDRC = 0xFF;//Ausgang
-	DDRD = 0xFF;//Ausgang
-	DDRD &= ~(1<<PORTD2);//Drehencoder A (INT0)
-	DDRD &= ~(1<<PORTD3);//Drehencoder B
-	DDRD &= ~(1<<PORTD5);//Taster MP3Player
-	DDRD &= ~(1<<PORTD6);//Taster MP3Player
-	DDRD &= ~(1<<PORTD7);//Taster MP3Player
+
 	
+	DDRB = 0xFF;//Ausgänge
+	DDRB &= ~(1<<PORTB1);//Taster Licht
+	DDRB &= ~(1<<PORTB2);//Drehencoder D
+	DDRB &= ~(1<<PORTB6);//2 Oszillator Eingänge
+	DDRB &= ~(1<<PORTB7);
+	PORTB &= ~(1<<PORTB0);//Amp aus
+	
+	DDRC = 0xFF;//Ausgänge Display
+	
+	DDRD = 0xFF;//Ausgänge
+	//Taster am mp3-Player werden als Eingänge gesetzt. Nur bei Nutzug auf Ausgang
+	DDRD &= ~(1<<PORTD0);//Mp3-OnOff/PlayPause
+	DDRD &= ~(1<<PORTD1);//4 Taster mp3-Player laut/leiser etc.
+	DDRD &= ~(1<<PORTD2);
+	DDRD &= ~(1<<PORTD3);
+	DDRD &= ~(1<<PORTD4);
+	DDRD &= ~(1<<PORTD5);//Drehenocer A
+	DDRD &= ~(1<<PORTD6);//Drehencoder B
+	PORTD &= ~(1<<PORTD7);//Amp Mute
 
 
 	LCD_RST = 1;
@@ -219,7 +226,7 @@ void configureTimerAndInterrupts() {
 
 void wakeUp_User(){
 	mute_on();//Verstärker muten, damit kein Knack beim Einschalten entsteht
-	mp3Player_on();
+	mp3Player_onoff();
 	_delay_ms(10000);//warten bis mp3Player an ist
 	amp_on();
 	if(snoozeCounter == 0){
@@ -261,7 +268,7 @@ void wakeUp_User(){
 	}
 	play_pause();//Pause
 	mute_on();
-	mp3Player_off();
+	mp3Player_onoff();
 	amp_off();
 	
 
@@ -287,6 +294,7 @@ void check_light(){
 		} else {
 			//PORTC |= (1<<PORTC5);//Licht an
 			LCD_LED = 1;
+			PORTB |= (1<<PORTB3);
 			light_sec_off = (seconds + LIGHT_ON_DURATION)%60;
 			light_status = ON;
 		}
@@ -1201,9 +1209,11 @@ void set_audio(){
 	convertString("Bitte warten", warte_ASCII);
 	print_ASCIIString(20,16, warte_ASCII, sizeof(warte_ASCII)/sizeof(warte_ASCII[0]));
 	update_LCD();
-	mp3Player_on();
+	mp3Player_onoff();//On
+	//_delay_ms(500);
+	boot_amp();
 	play_pause();
-	//Speaker-Symbol es EEPROM holen
+	//Speaker-Symbol aus EEPROM holen
 	uint8_t speakerSymb[SPEAKER_WIDTH];
 	for(int i=0; i<SPEAKER_WIDTH; i++){
 		speakerSymb[i] = pgm_read_byte(&speaker[0][i]);
@@ -1259,10 +1269,20 @@ void set_audio(){
 			btn_drehenc_pushed = false;
 		}
 	}
+	clear_pixelMatrix();
+	clear_LCD();
+	//print_symbol(16,17, hakenSymb,108,46);
+	//int warte_ASCII [strlen("Bitte warten")];
+	//convertString("Bitte warten", warte_ASCII);
+	print_ASCIIString(20,16, warte_ASCII, sizeof(warte_ASCII)/sizeof(warte_ASCII[0]));
+	update_LCD();
+	shutdown_amp();
+	mp3Player_onoff();
 }
 
 void boombox(){
-	amp_on();
+	//amp_on();
+	boot_amp();
 	clear_LCD();
 	clear_pixelMatrix();
 	uint8_t weckerSymb[72];
@@ -1277,8 +1297,7 @@ void boombox(){
 		goodNight();
 		check_light();
 	}
-	mute_on();
-	amp_off();
+	shutdown_amp();
 }
 
 void printSnoozetime(){
