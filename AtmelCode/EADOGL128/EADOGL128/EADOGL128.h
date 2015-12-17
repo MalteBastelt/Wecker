@@ -73,6 +73,10 @@ void reset_alarmLogo();
 
 void print_alarmLogo();
 
+void reset_snoozeLogo();
+
+void print_snoozeLogo();
+
 bool check_TimeUpdate();
 
 void goodNight();

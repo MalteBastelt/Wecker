@@ -253,10 +253,14 @@ void wakeUp_User(){
 			if(btn_press_duration>=BTN_PRESS_LONG){
 				user_awake = true;
 			} else {
+				reset_alarmLogo();
+				print_snoozeLogo();
 				snooze();
 				snoozeCounter = 1;
 			}
 		} else {
+			reset_alarmLogo();
+			print_snoozeLogo();
 			snooze();
 			snoozeCounter = 1;
 		}
@@ -270,6 +274,9 @@ void wakeUp_User(){
 			stop_btnPress();
 			if(btn_press_duration>=BTN_PRESS_LONG){
 				user_awake = true;
+				alarm = OFF;
+				reset_alarmLogo();
+				reset_snoozeLogo();
 				snoozeCounter = 0;
 				
 			}
@@ -281,6 +288,7 @@ void wakeUp_User(){
 }
 
 void snooze(){
+	
 	alarm_minute = minute + snoozeDuration % 60;
 	if(alarm_minute < 5)
 		alarm_hour = hour + 1;
@@ -820,7 +828,7 @@ void print_ASCIIString(int xStart, int yPos, int* string, int size){
 	
 	void reset_alarmLogo() {
 		for(int x = 1; x<10; x++){
-			for(int y = 2; y<2+16; y++)
+			for(int y = 1; y<1+16; y++)
 				reset_pixel(x,y);
 		}
 	}
@@ -830,7 +838,22 @@ void print_ASCIIString(int xStart, int yPos, int* string, int size){
 		for(int i=0; i<72; i++){
 			weckerSymb[i] = pgm_read_byte(&note[0][i]);
 		}
-		print_symbol(16,9,weckerSymb,1/*116*/,2);
+		print_symbol(16,9,weckerSymb,1/*116*/,1);
+	}
+	
+	void reset_snoozeLogo(){
+		for(int x = 1; x<SNOOZE_WIDTH; x++){
+			for(int y = 1; y<1+11; y++)
+			reset_pixel(x,y);
+		}
+	}
+	
+	void print_snoozeLogo(){
+		uint8_t snoozeSymb[SNOOZE_WIDTH];
+		for(int i=0; i<SNOOZE_WIDTH; i++){//PRÜFEN hakenSymb i<60
+			snoozeSymb[i] = pgm_read_byte(&snooze[0][i]);
+		}
+		print_symbol(11,14, snoozeSymb,1,1);
 	}
 	
 	void update_time() {
