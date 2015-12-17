@@ -38,7 +38,11 @@ Page  = acht gebündelte Pixel -> Page 0(1) enthält Reihen 0-7(8-15)
 #define STDDISPLAY true
 #define LIGHT_ON_DURATION 3 //wieviele Sekunden bleibt Licht an, wenn Taster gedrückt
 
+#define LED_NORWAY SBIT(PORTB, 3)
+#define LED_AUSTRALIA SBIT(PORTB, 4)
 
+
+void set_ports();
 
 //Konvertiert einen String in eine Reihenfolge von letter
 void convertString(char [], int []);
@@ -81,7 +85,7 @@ void start_btnPress();
 
 void stop_btnPress();
 
-void show_mainMenu(bool);
+void show_mainMenu();
 
 void print_stdDisplay();
 

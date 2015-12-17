@@ -10,7 +10,7 @@ Dieses Werk ist lizenziert unter einer Creative Commons Namensnennung - Nicht-ko
 #define yPosDate 47
 #define empty 53
 #define BIG_NUMBER_HEIGHT 32
-#define smallNumberHeight 16
+#define SMALL_NUMBER_HEIGHT 16
 #define TIMEX 57
 #define TIMEY 9
 #define SPACE_TO_DOTS 4

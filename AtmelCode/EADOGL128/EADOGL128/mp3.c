@@ -40,7 +40,7 @@ void mp3Player_onoff(){
 	push_button(MP3_ONOFF);
 	_delay_ms(PUSH_DURATION_LONG);
 	release_button(MP3_ONOFF);
-	_delay_ms(PUSH_DURATION);//Pause vor nächstem Tastendruck erzwingen
+	_delay_ms(PUSH_DURATION_LONG);//Pause vor nächstem Tastendruck erzwingen
 }
 
 //void mp3Player_off(){
@@ -118,20 +118,20 @@ void push_button(uint8_t button){
 void release_button(uint8_t button){
 	switch(button){
 		case MP3_T1:
-			DDRD &= ~(1<<PORTD2);//Pin als Eingang setzen
 			PORTD |= (1<<PORTD2);//Pin sicherheitshalber auf eins
+			DDRD &= ~(1<<PORTD2);//Pin als Eingang setzen
 			break;	
 		case MP3_T3:
-			DDRD &= ~(1<<PORTD1);
 			PORTD |= (1<<PORTD1);
+			DDRD &= ~(1<<PORTD1);
 			break;	
 		case MP3_T4:
-			DDRD &= ~(1<<PORTD3);
 			PORTD |= (1<<PORTD3);
+			DDRD &= ~(1<<PORTD3);
 			break;	
 		case MP3_T5:
-			DDRD &= ~(1<<PORTD4);
 			PORTD |= (1<<PORTD4);
+			DDRD &= ~(1<<PORTD4);
 			break;	
 		case MP3_ONOFF:
 			PORTD &= ~(1<<PORTD0);

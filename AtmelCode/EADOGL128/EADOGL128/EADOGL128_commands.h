@@ -2,11 +2,12 @@
 Autor: Malte Ollenschläger
 Dieses Werk ist lizenziert unter einer Creative Commons Namensnennung - Nicht-kommerziell - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz.
 */
+
 #define LCD_CS SBIT(PORTC, 4)
 #define LCD_RST SBIT(PORTC, 3)
 #define LCD_A0 SBIT(PORTC, 2)
 #define LCD_D SBIT(PORTC, 0)
-#define LCD_CLK SBIT(PORTC, 1)//PB7
+#define LCD_CLK SBIT(PORTC, 1)
 #define LCD_LED SBIT(PORTC, 5)
 
 uint8_t pixelMatrix [128] [8];

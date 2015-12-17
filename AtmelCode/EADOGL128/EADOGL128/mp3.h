@@ -14,7 +14,7 @@ Dieses Werk ist lizenziert unter einer Creative Commons Namensnennung - Nicht-ko
 #define AMP_MUTE 7
 #define AMP_STBY 8
 #define PUSH_DURATION 70
-#define PUSH_DURATION_LONG 5000
+#define PUSH_DURATION_LONG 2000
 
 void boot_amp();
 
@@ -29,8 +29,6 @@ void mute_on();
 void mute_off();
 
 void mp3Player_onoff();
-
-//void mp3Player_off();
 
 void next_song();
 

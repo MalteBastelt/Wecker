@@ -4,6 +4,7 @@ Dieses Werk ist lizenziert unter einer Creative Commons Namensnennung - Nicht-ko
 */
 #include "EADOGL128_commands.h"
 
+
 void lcdInit() {
 	sendCmd(0x40);
 	sendCmd(0xA1);
@@ -117,8 +118,8 @@ void print_letter(int height, int width, int asciiCode, int xStart, int yStart) 
 
 void print_smallNumber(int xStart, int yStart, int number) {
 	for(int x = 0; x<pgm_read_byte(&smallNumberWidth[number]); x++) {
-		for(int y = 0; y<alphaHeight; y++) {
-			if(pgm_read_byte(&smallNumber[number][x*2+y/8]) & (1<<(y%8))){
+		for(int y = 0; y<SMALL_NUMBER_HEIGHT; y++) {
+			if(pgm_read_byte(&smallNumber[number][x*SMALL_NUMBER_HEIGHT/8+y/8]) & (1<<(y%8))){
 				set_pixel(xStart+x,yStart+y);
 				} else {
 				reset_pixel(xStart+x,yStart+y);
@@ -129,7 +130,7 @@ void print_smallNumber(int xStart, int yStart, int number) {
 
 void print_bigNumber(int xStart, int yStart, int number) {
 	for(int x = 0; x<pgm_read_byte(&bigNumberWidth[number]); x++) {
-		for(int y = 0; y<32; y++) {
+		for(int y = 0; y<BIG_NUMBER_HEIGHT; y++) {
 			if(pgm_read_byte(&bigNumber[number][x*BIG_NUMBER_HEIGHT/8+y/8]) & (1<<(y%8))){
 				set_pixel(xStart+x,yStart+y);
 				} else {

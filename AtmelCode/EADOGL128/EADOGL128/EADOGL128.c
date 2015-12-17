@@ -16,7 +16,7 @@ int seconds = 0;
 int alarm_hour = 0;
 int alarm_minute = 0;
 int snoozeDuration = 5;//Minuten
-uint8_t snoozeCounter = 1;
+uint8_t snoozeCounter = 0;
 
 int day=30;
 int month = 9;
@@ -59,39 +59,15 @@ int main(void)
 {
 	_delay_ms(1000); //Oszillator powerup
 
-	
-	DDRB = 0xFF;//Ausgänge
-	DDRB &= ~(1<<PORTB1);//Taster Licht
-	DDRB &= ~(1<<PORTB2);//Drehencoder D
-	DDRB &= ~(1<<PORTB6);//2 Oszillator Eingänge
-	DDRB &= ~(1<<PORTB7);
-	PORTB &= ~(1<<PORTB0);//Amp aus
-	
-	DDRC = 0xFF;//Ausgänge Display
-	
-	DDRD = 0xFF;//Ausgänge
-	//Taster am mp3-Player werden als Eingänge gesetzt. Nur bei Nutzug auf Ausgang
-	DDRD &= ~(1<<PORTD0);//Mp3-OnOff/PlayPause
-	DDRD &= ~(1<<PORTD1);//4 Taster mp3-Player laut/leiser etc.
-	DDRD &= ~(1<<PORTD2);
-	DDRD &= ~(1<<PORTD3);
-	DDRD &= ~(1<<PORTD4);
-	DDRD &= ~(1<<PORTD5);//Drehenocer A
-	DDRD &= ~(1<<PORTD6);//Drehencoder B
-	PORTD &= ~(1<<PORTD7);//Amp Mute
 
-
-	LCD_RST = 1;
-	LCD_CS = 1;
-	LCD_CLK = 1;
+	set_ports();//Ein- und Ausgänge einstellen
+	configureTimerAndInterrupts();//Benötigte Interrupts aktivieren, Timer einstellen
+	
 	lcdInit();
 	clear_LCD();
     print_stdDisplay();
-
-	configureTimerAndInterrupts(); 
 	
-	sei(); //Interrupts aktivieren
-
+	sei(); //globale Interrupts aktivieren
 
 	while(1) {
 		if(btn_light_pushed == true){
@@ -110,7 +86,7 @@ int main(void)
 		}
 		if(btn_drehenc_pushed){
 			
-			//Timer starten zum zählen
+			//Timer starten zum Zählen
 			start_btnPress();
 			//warten, solange Taste gedrückt ist
 			while((PINB & (1<<PINB2)) && (btn_press_duration<BTN_PRESS_LONG)){_delay_ms(50);}//KANN DELAY WEGGELASSEN WERDEN?
@@ -134,8 +110,6 @@ int main(void)
 			btn_drehenc_pushed = false;
 			menuOpen = false;
 		}
-		
-		//PORTC &= ~(1);
 		goodNight();
 	}
 	
@@ -144,15 +118,13 @@ int main(void)
 ISR(PCINT0_vect){//Drehencoder oder Lichtschalter wurde gedrückt
 		if((PINB & (1<<PINB2))){ //Drehencoder gedrückt
 			btn_drehenc_pushed = true;
-			if(light_status==ON){
+			//btn_light_pushed = true;//DEBUG
+			if(light_status==ON){//Leuchtdauer verlängern, falls Licht an ist
 				light_sec_off = (seconds + LIGHT_ON_DURATION)%60;
 			}
 		} 
 		if((PINB & (1<<PINB1))) {//Lichtschalter gedrückt
-				/*PORTC |= (1<<PORTC1);//Licht an
-				light_sec_off = (seconds + LIGHT_ON_DURATION)%60;
-				light_status = ON;*/
-				btn_light_pushed = true;
+				btn_light_pushed = true;//Flag wird in main() abgearbeitet
 		}
 	}
 
@@ -191,16 +163,44 @@ ISR(TIMER2_OVF_vect) {//Quarz-Overflow (1s vorbei)
 			increment = true;	
 	}*///FÜR MESSUNG AUSGTESTELLT	
 	if( (light_status) && (seconds == light_sec_off) ){
-		//PORTC &= ~(1<<PORTC5);//Licht ausschalten
+		//Alle Beleuchtungen ausschalten
 		LCD_LED = 0;
+		LED_NORWAY = 0;
+		LED_AUSTRALIA = 0;
 		light_status = OFF;
 	}
 }
 	
-ISR(TIMER0_OVF_vect){
+ISR(TIMER0_OVF_vect){//Timer zur Messung der Drückdauer eines Tasters
 	//8Mhz / 256 = 31250 Hz
 	//256 [ticks/Interrupt] / 31250 [ticks / s] = 8.192 [ms / Interrupt]
 	btn_press_duration += 0.008192;	
+}
+
+void set_ports(){
+	DDRB = 0xFF;//Ausgänge
+	DDRB &= ~(1<<PORTB1);//Taster Licht
+	DDRB &= ~(1<<PORTB2);//Drehencoder D
+	DDRB &= ~(1<<PORTB6);//2 Oszillator Eingänge
+	DDRB &= ~(1<<PORTB7);
+	PORTB &= ~(1<<PORTB0);//Amp aus
+	
+	DDRC = 0xFF;//Ausgänge Display
+	
+	DDRD = 0xFF;//Ausgänge
+	//Taster am mp3-Player werden als Eingänge gesetzt. Nur bei Nutzug auf Ausgang
+	DDRD &= ~(1<<PORTD0);//Mp3-OnOff/PlayPause
+	DDRD &= ~(1<<PORTD1);//4 Taster mp3-Player laut/leiser etc.
+	DDRD &= ~(1<<PORTD2);
+	DDRD &= ~(1<<PORTD3);
+	DDRD &= ~(1<<PORTD4);
+	DDRD &= ~(1<<PORTD5);//Drehenocer A
+	DDRD &= ~(1<<PORTD6);//Drehencoder B
+	PORTD &= ~(1<<PORTD7);//Amp Mute
+
+	LCD_RST = 1;
+	LCD_CS = 1;
+	LCD_CLK = 1;
 }
 
 void configureTimerAndInterrupts() {
@@ -228,7 +228,9 @@ void wakeUp_User(){
 	mute_on();//Verstärker muten, damit kein Knack beim Einschalten entsteht
 	mp3Player_onoff();
 	_delay_ms(10000);//warten bis mp3Player an ist
-	amp_on();
+	next_song();
+	play_pause();
+	boot_amp();
 	if(snoozeCounter == 0){
 		next_song();
 	}
@@ -236,7 +238,12 @@ void wakeUp_User(){
 	play_pause();//Play
 	bool user_awake = false;
 	
-	goodNight();
+	while((!btn_light_pushed) && (rotary == 0) && (!btn_drehenc_pushed)){//Könnte auch von Sekundenzähler aufgewacht sein
+		goodNight();
+		if(check_TimeUpdate());
+			update_time();
+	}
+	
 	if(snoozeCounter==0){
 		if(btn_light_pushed){
 			//while(!btn_light_pushed){_delay_ms(100);}
@@ -245,7 +252,6 @@ void wakeUp_User(){
 			stop_btnPress();
 			if(btn_press_duration>=BTN_PRESS_LONG){
 				user_awake = true;
-				snoozeCounter = 0;
 			} else {
 				snooze();
 				snoozeCounter = 1;
@@ -257,26 +263,30 @@ void wakeUp_User(){
 	} else {
 		while(!user_awake){
 			goodNight();
+			if(check_TimeUpdate())
+				update_time();
 			start_btnPress();
 			while((PINB & (1<<PINB1)) && (btn_press_duration<BTN_PRESS_LONG)){_delay_ms(50);}
 			stop_btnPress();
 			if(btn_press_duration>=BTN_PRESS_LONG){
 				user_awake = true;
 				snoozeCounter = 0;
+				
 			}
 		}
 	}
 	play_pause();//Pause
-	mute_on();
+	shutdown_amp();
 	mp3Player_onoff();
-	amp_off();
-	
-
 }
 
 void snooze(){
-	alarm_hour = hour % 24;
 	alarm_minute = minute + snoozeDuration % 60;
+	if(alarm_minute < 5)
+		alarm_hour = hour + 1;
+	else
+		alarm hour = hour;
+	
 }
 
 void check_light(){
@@ -291,14 +301,16 @@ void check_light(){
 		if((btn_press_duration > BTN_PRESS_LONG) && (menuOpen==false)){
 			alarm = !alarm;
 			print_stdDisplay();
-		} else {
-			//PORTC |= (1<<PORTC5);//Licht an
-			LCD_LED = 1;
-			PORTB |= (1<<PORTB3);
+		} else {//ansonsten Licht einschalten
+			LCD_LED = 1;//Hintergrundbeleuchtung Display an
+			LED_NORWAY = 1;//Beleuchtung Norwegen an
+			LED_AUSTRALIA = 1;//Beleuchtung Australien an
 			light_sec_off = (seconds + LIGHT_ON_DURATION)%60;
 			light_status = ON;
 		}
-		btn_light_pushed = false;
+		cli();
+		btn_light_pushed = false;//Flag zurücksetzen
+		sei();
 	}
 }
 
@@ -365,30 +377,21 @@ int get_menuSelection(int numItems, int selectedItem){
 }
 	
 	
-void show_mainMenu(bool herkunft){
-	int item;
-	//if(herkunft == STDDISPLAY)
-		item = 0;
-	//else
-	//	item = 3;
+void show_mainMenu(){
+	int item = 0;
 	bool stayOpened = true; //wird benötigt um Rückgabewert aus Menu2 zu speichern
 	while((item<4) && (stayOpened == true)){	
-		//while(item < 3){
-			print_menuItems("Weckzeit", "Uhrzeit", "Datum", ". . .");
-			update_LCD();
-			item = get_menuSelection(4, item);
-			switch (item) {
-				case 0: set_alarm(); break;
-				case 1: set_time(TIME_TYPE); break;
-				case 2: set_date(); break;
-				case 3: stayOpened = show_mainMenu2(); break;
-				case 4: print_stdDisplay(); break;
-				default: print_stdDisplay(); break;
-			}
-		//}
-		//if(item == 3){
-		//	show_mainMenu2();
-		//}
+		print_menuItems("Weckzeit", "Uhrzeit", "Datum", ". . .");
+		update_LCD();
+		item = get_menuSelection(4, item);
+		switch (item) {
+			case 0: set_alarm(); break;
+			case 1: set_time(TIME_TYPE); break;
+			case 2: set_date(); break;
+			case 3: stayOpened = show_mainMenu2(); break;//STAY OPENED ÜBERFLÜSSIG (?)
+			case 4: print_stdDisplay(); break;
+			default: print_stdDisplay(); break;
+		}
 	}
 }
 
@@ -399,7 +402,7 @@ bool show_mainMenu2(){
 		update_LCD();
 		item = get_menuSelection(4, item);
 		switch (item) {
-			case 0: /*show_mainMenu();*/ break;
+			case 0: break; //"..." ausgewählt -> in Menü1 zurückkehren
 			case 1: set_snoozeDuration(); break;
 			case 2: set_audio(); break;
 			case 3: boombox(); break;
@@ -449,15 +452,6 @@ void set_timeParameter(int *timeParameter, int maxTime, bool timeType){ //timePa
 	cli();
 	btn_drehenc_pushed = false;
 	sei();
-}
-
-void wait_drehencDone(){
-	int old_rotary = 0;
-	//start_btnPress();
-	while(old_rotary != rotary){
-		old_rotary = rotary;
-		_delay_ms(70);
-	}
 }
 
 void set_time(bool timeType){
@@ -546,7 +540,6 @@ void set_time(bool timeType){
 			}
 		}
 		update_LCD();
-		//goodNight();
 	}
 }
 
@@ -1210,7 +1203,7 @@ void set_audio(){
 	print_ASCIIString(20,16, warte_ASCII, sizeof(warte_ASCII)/sizeof(warte_ASCII[0]));
 	update_LCD();
 	mp3Player_onoff();//On
-	//_delay_ms(500);
+	_delay_ms(1000);
 	boot_amp();
 	play_pause();
 	//Speaker-Symbol aus EEPROM holen
@@ -1224,20 +1217,26 @@ void set_audio(){
 	print_symbol(24,31,speakerSymb,(128-31)/2,(64-24)/2);
 	while(item!=1){
 		while(!btn_drehenc_pushed){
+			
 			item+=rotary;
 			item=item%2;
 			if(item<0)
 			item+=2;
 			rotary = 0;
 			if(item == 0){
-				print_symbol(8,HERZ_KLEIN_WIDTH,herzKleinSymb,64-4, 2);
-				for(int x = 92; x<92+16; x++){
+				//ggf. offenes Herz entfernen
+				for(int x = 64-HERZ_KLEIN_WIDTH/2; x<64-HERZ_KLEIN_WIDTH/2+2; x++){
+					for(int y = 2; y<11; y++)		
+						reset_pixel(x,y);
+				}
+				print_symbol(8,HERZ_KLEIN_WIDTH,herzKleinSymb,64-4, 2);//kleines Herz über Speaker malen
+				for(int x = 92; x<92+16; x++){//Großes Herz am Haken entfernen
 					for(int y = 2+3*15; y<64; y++)
 					reset_pixel(x,y);
 				}
 				} else {
-				print_symbol(16,16, herzSymb, 92, 2+3*15);
-				for(int x = 64-8; x<64+8; x++){
+				print_symbol(16,16, herzSymb, 92, 2+3*15);//Großes Herz am Haken malen
+				for(int x = 64-8; x<64+8; x++){//kleines Herz über Speaker entfernen
 					for(int y = 2; y<11; y++)
 					reset_pixel(x,y);
 				}
@@ -1256,14 +1255,15 @@ void set_audio(){
 			update_LCD();
 			btn_drehenc_pushed = false;
 			while(!btn_drehenc_pushed){
+				goodNight();
 				if(rotary>0){
 					volume(UP);
 					rotary = 0;
 				} else {
 					volume(DOWN);
+					btn_light_pushed = true; //DEBUG
 					rotary = 0;
 				}
-				goodNight();
 				check_light();
 			}
 			btn_drehenc_pushed = false;
@@ -1271,9 +1271,6 @@ void set_audio(){
 	}
 	clear_pixelMatrix();
 	clear_LCD();
-	//print_symbol(16,17, hakenSymb,108,46);
-	//int warte_ASCII [strlen("Bitte warten")];
-	//convertString("Bitte warten", warte_ASCII);
 	print_ASCIIString(20,16, warte_ASCII, sizeof(warte_ASCII)/sizeof(warte_ASCII[0]));
 	update_LCD();
 	shutdown_amp();
@@ -1281,7 +1278,6 @@ void set_audio(){
 }
 
 void boombox(){
-	//amp_on();
 	boot_amp();
 	clear_LCD();
 	clear_pixelMatrix();
