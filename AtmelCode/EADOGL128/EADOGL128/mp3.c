@@ -40,21 +40,13 @@ void mp3Player_onoff(){
 	push_button(MP3_ONOFF);
 	_delay_ms(PUSH_DURATION_LONG);
 	release_button(MP3_ONOFF);
-	_delay_ms(PUSH_DURATION_LONG);//Pause vor nächstem Tastendruck erzwingen
+	_delay_ms(PUSH_DURATION_LONG+3000);//Pause vor nächstem Tastendruck erzwingen
 }
-
-//void mp3Player_off(){
-//	push_button(MP3_ONOFF);
-//	_delay_ms(PUSH_DURATION_LONG);
-//	release_button(MP3_ONOFF);
-//}
 
 void next_song(){
 	push_button(MP3_T1);
-	push_button(MP3_T5);
 	_delay_ms(PUSH_DURATION);
 	release_button(MP3_T1);
-	release_button(MP3_T5);
 	_delay_ms(PUSH_DURATION);//Pause vor nächstem Tastendruck erzwingen
 }
 
@@ -68,16 +60,12 @@ void play_pause(){
 void volume(bool direction){
 	if(direction == UP){
 		push_button(MP3_T4);
-		push_button(MP3_T5);
 		_delay_ms(PUSH_DURATION);
 		release_button(MP3_T4);
-		release_button(MP3_T5);
 	} else {
 		push_button(MP3_T3);
-		push_button(MP3_T5);
 		_delay_ms(PUSH_DURATION);
 		release_button(MP3_T3);
-		release_button(MP3_T5);
 	}
 	_delay_ms(PUSH_DURATION);//Pause vor nächstem Tastendruck erzwingen
 }
@@ -97,10 +85,6 @@ void push_button(uint8_t button){
 			DDRD |= (1<<PORTD3);
 			PORTD &= ~(1<<PORTD3);
 			break;
-		case MP3_T5:
-			DDRD |= (1<<PORTD4);
-			PORTD &= ~(1<<PORTD4);	
-			break;	
 		case MP3_ONOFF:
 			DDRD |= (1<<PORTD0);
 			PORTD |= (1<<PORTD0);
@@ -128,10 +112,6 @@ void release_button(uint8_t button){
 		case MP3_T4:
 			PORTD |= (1<<PORTD3);
 			DDRD &= ~(1<<PORTD3);
-			break;	
-		case MP3_T5:
-			PORTD |= (1<<PORTD4);
-			DDRD &= ~(1<<PORTD4);
 			break;	
 		case MP3_ONOFF:
 			PORTD &= ~(1<<PORTD0);

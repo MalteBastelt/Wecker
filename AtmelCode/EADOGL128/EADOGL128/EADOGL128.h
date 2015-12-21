@@ -36,10 +36,11 @@ Page  = acht gebündelte Pixel -> Page 0(1) enthält Reihen 0-7(8-15)
 #define OFF false
 #define ON true
 #define STDDISPLAY true
-#define LIGHT_ON_DURATION 3 //wieviele Sekunden bleibt Licht an, wenn Taster gedrückt
+#define LIGHT_ON_DURATION 5 //wieviele Sekunden bleibt Licht an, wenn Taster gedrückt
 
 #define LED_NORWAY SBIT(PORTB, 3)
 #define LED_AUSTRALIA SBIT(PORTB, 4)
+#define LCD_LED SBIT(PORTC, 5)
 
 
 void set_ports();
@@ -76,6 +77,8 @@ void print_alarmLogo();
 void reset_snoozeLogo();
 
 void print_snoozeLogo();
+
+void snooze_alarm();
 
 bool check_TimeUpdate();
 
@@ -150,8 +153,5 @@ void set_audio();
 void boombox();
 
 void printSnoozetime();
-
-void snooze();
-
 
 #endif

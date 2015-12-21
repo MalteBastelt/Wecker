@@ -8,7 +8,7 @@ Dieses Werk ist lizenziert unter einer Creative Commons Namensnennung - Nicht-ko
 #define LCD_A0 SBIT(PORTC, 2)
 #define LCD_D SBIT(PORTC, 0)
 #define LCD_CLK SBIT(PORTC, 1)
-#define LCD_LED SBIT(PORTC, 5)
+
 
 uint8_t pixelMatrix [128] [8];
 

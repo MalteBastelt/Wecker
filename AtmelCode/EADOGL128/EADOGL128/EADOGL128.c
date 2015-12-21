@@ -162,7 +162,7 @@ ISR(TIMER2_OVF_vect) {//Quarz-Overflow (1s vorbei)
 		else //zum zweiten Mal -> darf wieder nicht inkrementieren, weil insgesamt 2s zu schnell (hier noch 1s)
 			increment = true;	
 	}*///FÜR MESSUNG AUSGTESTELLT	
-	if( (light_status) && (seconds == light_sec_off) ){
+	if( (light_status==ON) && (seconds == light_sec_off) ){
 		//Alle Beleuchtungen ausschalten
 		LCD_LED = 0;
 		LED_NORWAY = 0;
@@ -227,15 +227,13 @@ void configureTimerAndInterrupts() {
 void wakeUp_User(){
 	mute_on();//Verstärker muten, damit kein Knack beim Einschalten entsteht
 	mp3Player_onoff();
-	_delay_ms(10000);//warten bis mp3Player an ist
-	next_song();
-	play_pause();
-	boot_amp();
 	if(snoozeCounter == 0){
 		next_song();
 	}
-	mute_off();
-	play_pause();//Play
+	play_pause();
+	_delay_ms(1000);//warten bis mp3Player an ist
+	boot_amp();
+
 	bool user_awake = false;
 	
 	while((!btn_light_pushed) && (rotary == 0) && (!btn_drehenc_pushed)){//Könnte auch von Sekundenzähler aufgewacht sein
@@ -255,13 +253,15 @@ void wakeUp_User(){
 			} else {
 				reset_alarmLogo();
 				print_snoozeLogo();
-				snooze();
+				update_LCD();
+				snooze_alarm();
 				snoozeCounter = 1;
 			}
 		} else {
 			reset_alarmLogo();
 			print_snoozeLogo();
-			snooze();
+			update_LCD();
+			snooze_alarm();
 			snoozeCounter = 1;
 		}
 	} else {
@@ -287,13 +287,13 @@ void wakeUp_User(){
 	mp3Player_onoff();
 }
 
-void snooze(){
+void snooze_alarm(){
 	
 	alarm_minute = minute + snoozeDuration % 60;
 	if(alarm_minute < 5)
 		alarm_hour = hour + 1;
 	else
-		alarm hour = hour;
+		alarm_hour = hour;
 	
 }
 
@@ -1226,9 +1226,9 @@ void set_audio(){
 	print_ASCIIString(20,16, warte_ASCII, sizeof(warte_ASCII)/sizeof(warte_ASCII[0]));
 	update_LCD();
 	mp3Player_onoff();//On
+	play_pause();
 	_delay_ms(1000);
 	boot_amp();
-	play_pause();
 	//Speaker-Symbol aus EEPROM holen
 	uint8_t speakerSymb[SPEAKER_WIDTH];
 	for(int i=0; i<SPEAKER_WIDTH; i++){
@@ -1238,6 +1238,7 @@ void set_audio(){
 	clear_LCD();
 	print_symbol(16,17, hakenSymb,108,46);
 	print_symbol(24,31,speakerSymb,(128-31)/2,(64-24)/2);
+	rotary = 0;
 	while(item!=1){
 		while(!btn_drehenc_pushed){
 			
@@ -1284,7 +1285,6 @@ void set_audio(){
 					rotary = 0;
 				} else {
 					volume(DOWN);
-					btn_light_pushed = true; //DEBUG
 					rotary = 0;
 				}
 				check_light();
