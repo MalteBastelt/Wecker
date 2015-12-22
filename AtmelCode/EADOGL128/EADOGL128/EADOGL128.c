@@ -18,8 +18,8 @@ int alarm_minute = 0;
 int snoozeDuration = 5;//Minuten
 uint8_t snoozeCounter = 0;
 
-int day=30;
-int month = 9;
+int day=24;
+int month = 11;
 int year = 2015;
 int daysThisMonth = 31;
 
@@ -235,12 +235,24 @@ void wakeUp_User(){
 	boot_amp();
 
 	bool user_awake = false;
-	
+	LCD_LED = 1;
+	LED_AUSTRALIA = 1;
+	LED_NORWAY = 1;
+	int secondsStart = seconds;
 	while((!btn_light_pushed) && (rotary == 0) && (!btn_drehenc_pushed)){//Könnte auch von Sekundenzähler aufgewacht sein
 		goodNight();
 		if(check_TimeUpdate());
 			update_time();
+		if(seconds == secondsStart + 30){
+			LCD_LED = 0;
+			LED_AUSTRALIA = 0;
+			LED_NORWAY = 0;
+		}
 	}
+	
+	LCD_LED = 0;
+	LED_AUSTRALIA = 0;
+	LED_NORWAY = 0;
 	
 	if(snoozeCounter==0){
 		if(btn_light_pushed){
@@ -834,11 +846,11 @@ void print_ASCIIString(int xStart, int yPos, int* string, int size){
 	}
 	
 	void print_alarmLogo() {
-		uint8_t weckerSymb[72];
-		for(int i=0; i<72; i++){
+		uint8_t weckerSymb[18];//72
+		for(int i=0; i<18; i++){//72
 			weckerSymb[i] = pgm_read_byte(&note[0][i]);
 		}
-		print_symbol(16,9,weckerSymb,1/*116*/,1);
+		print_symbol(16,9,weckerSymb,1,1);
 	}
 	
 	void reset_snoozeLogo(){
@@ -849,11 +861,11 @@ void print_ASCIIString(int xStart, int yPos, int* string, int size){
 	}
 	
 	void print_snoozeLogo(){
-		uint8_t snoozeSymb[SNOOZE_WIDTH];
-		for(int i=0; i<SNOOZE_WIDTH; i++){//PRÜFEN hakenSymb i<60
-			snoozeSymb[i] = pgm_read_byte(&snooze[0][i]);
+		uint8_t snoozeSymb[9];
+		for(int i=0; i<9; i++){
+			snoozeSymb[i] = pgm_read_byte(&snoozePic[0][i]);
 		}
-		print_symbol(11,14, snoozeSymb,1,1);
+		print_symbol(8,9, snoozeSymb,1,1);
 	}
 	
 	void update_time() {
