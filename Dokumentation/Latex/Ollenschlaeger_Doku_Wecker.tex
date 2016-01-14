@@ -22,8 +22,8 @@
 %mp3-Wecker,
 %\end{IEEEkeywords}
 
-\section{Einleitung}
-	\IEEEPARstart{D}{ie} Gesamtfunktion des Weckers setzt sich aus mehreren Teilfunktionen zusammen. Eine der grundlegenden Funktionen ist die \textit{Anzeige der Uhrzeit} auf einem Display. Weiterhin wird das \textit{Datum} durch die Zusammensetzung des aktuelle Monats als Wort und des Tages als Ordinalzahl angezeigt. % An ausgewählten Tagen, wie zum Beispiel dem der Besitzerin soll das Display anstatt des Datums eine andere \textit{Zeichenkette oder ein Bild} anzeigen.
+\section{Zielsetzung}
+	\IEEEPARstart{D}{ie} Gesamtfunktion des Weckers soll sich aus mehreren Teilfunktionen zusammensetzen. Eine der grundlegenden Funktionen ist die \textit{Anzeige der Uhrzeit} auf einem Display. Weiterhin wird das \textit{Datum} durch die Zusammensetzung des aktuelle Monats als Wort und des Tages als Ordinalzahl angezeigt. % An ausgewählten Tagen, wie zum Beispiel dem der Besitzerin soll das Display anstatt des Datums eine andere \textit{Zeichenkette oder ein Bild} anzeigen.
 	Ein weiteres Symbol gibt an, ob der Alarm ein- oder ausgeschaltet ist. Das Umschalten funktioniert durch das Gedrückthalten eines Tasters, über den gleichzeitig bei kurzem Drücken die Displaybeleuchtung und die Beleuchtung der Bilder eingeschaltet werden kann. Die Implementierung der Weckfunktion sorgt bei eingeschaltetem Alarm dafür, dass zur konfigurierten Uhrzeit der mp3-Player gestartet und eine sich auf selbigem befindliche mp3-Datei abgespielt wird. Beim nächsten Weckruf wird die darauf folgende Datei abgespielt.\par
 
 	Über ein Menü, das über das Bedienen eines zweiten Tasters zu erreichen ist, sind folgende Elemente einstellbar:
@@ -35,7 +35,7 @@
 	\item Boombox
 %	[$\blacktriangleright$]
 	\end{itemize}
-	Innerhalb des Menüs findet die Navigation über einen Drehencoder statt.	Bei der Einstellung des Datums wird neben Tag und Monat auch das Jahr abgefragt. Dies dient der Erkennung von Schaltjahren, damit in diesen in der Datumsanzeige auf den 28. Februar statt dem 1. März der 29. Februar folgt. Mit dem Menüpunkt "Lautstärke"\ lässt sich eben diese des mp3-Players und damit die Lautstärke des Wecktons verändern. Wird der Menüpunkt "Boombox"\ ausgewählt, so kann über ein Cinch-Kabel eine externe Audio-Quelle angeschlossen werden und die darauf abgespielte Musik wird über die Lautsprecher des Weckers wiedergegeben. In dieser Zeit ist die Weckfunktion außer Kraft gesetzt.\par
+	Innerhalb des Menüs findet die Navigation über einen Drehencoder statt.	Bei der Einstellung des Datums wird neben Tag und Monat zur Berücksichtigung von Schaltjahren auch das Jahr abgefragt. Mit dem Menüpunkt "Lautstärke"\ lässt sich eben diese des mp3-Players und damit die Lautstärke des Wecktons verändern. Wird der Menüpunkt "Boombox"\ ausgewählt, so kann über ein Cinch-Kabel eine externe Audio-Quelle angeschlossen werden und die darauf abgespielte Musik wird über die Lautsprecher des Weckers wiedergegeben.\par
 	Die Personalisierung des Weckers wird durch drei Eigenschaften erreicht. Die erste ist die Tatsache, dass die Weckmusik nach dem eigenen Geschmack angepasst werden kann, indem diese auf den mp3-Player kopiert wird. Die zweite personalisierte Eigenschaft ist, dass beispielsweise an Valentinstag und am Geburtstag der Person statt des Datums andere Bilder oder Texte eingeblendet werden. Der offensichtlichste Teil der Personalisierung liegt in der Herstellung des Gehäuses. In die Front des Weckers werden Motive zu denen die Benutzerin einen persönlichen Bezug hat, geschnitten. Diese werden zusätzlich zum Display beleuchtet, wenn der entsprechende Taster betätigt wird.
 	Als Vorlage für dieses Projekt diente ein ebenfalls selbst hergestellter Wecker, der auf der Internetseite www.wiesolator.de vorgestellt wurde.\par
 	
@@ -62,13 +62,16 @@
 				Lautsprecher & Visaton FR8-8 \\
 				Mikrocontroller & Atmega328P \\
 				mp3-Player & Intenso Music Walker \\
+				Plexiglas & \\
 				Schaltnetzteil 5V/1A & goobay 54805 \\
 				Spannungsregler 1,5VDC & LM317\\
 				Spannungsregler 3,3VDC & LM3940 \\
 				Spanplatten & \\
 				Schrauben &\\
 				Muttern&\\
-				Taster & FEHLT \\
+				Taster & MS 131 SW \\
+				Transistor & BC547C \\
+				Transparenzfolie & \\
 				Uhrenquarz 32kHz& - \\			
 				Verstärker & TDA7266 \\
 				\bottomrule		
@@ -91,15 +94,15 @@
 				R_2 = (\frac{V_{out}}{V_{ref}}-1) / (\frac{1}{R_1}+I_{adj})
 			\end{equation}	
 			Für den Ausgleichsstrom wurden 50$\mu A$ und damit die Hälfte des Maximums angenommen. Dieser wird vom Spannungsregler so geregelt, dass $V_{ref} = 1,25 V$ gilt. Bei einer Wahl von $R_1 = 10k\Omega$ ergibt sich für $R_2 \approx 1,3 k\Omega$.
-			Zur Beleuchtung der beiden Bilder auf der Frontseite des Weckers wird eine Transistorschaltung (\ref{fig:Transistor} benötigt. 
+			Zur Beleuchtung der beiden Bilder auf der Frontseite des Weckers wird eine Transistorschaltung (Abb. \ref{fig:Transistor}) benötigt. 
 			\begin{figure}
-				\begin{center}
-					\label{fig:Transistor}
+				\begin{center}	
 					\includegraphics[width=5cm]{./Grafiken/Transistor.png}
 					\caption{Transistorschaltung zur Ansteuerung von LEDs}
+					\label{fig:Transistor}
 				\end{center}
 			\end{figure}
-			Diese wird durch ein Kontrollsignal vom Mikrocontroller, welches an die Basis des Transistors angeschlossen ist, gesteuert. Ein BC547C Transistor schaltet 4 LEDs mit je 20 mA. Die Berechnung der Widerstände ergibt sich aus folgen Formeln: 
+			Diese wird durch ein Kontrollsignal vom Mikrocontroller, welches an die Basis des Transistors angeschlossen ist, gesteuert. Ein BC547C Transistor schaltet 4 LEDs mit je 20 mA. Der Kollektorstrom von $I_C=80mA$ ist das Vierfache des Vorwärtsstroms einer LED ($I_F=20mA$), da dieser sich nach der ersten Kirchhoff'schen Regel gleichmäßig auf die vier LEDs aufteilt. Die Berechnung der Widerstände ergibt sich aus folgen Formeln: 
 			\begin{equation}
 				R_{Basis} \leq \frac{U_{\mu C}-U_{BE}}{I_B} =  \frac{3,3V-0,66V}{5mA} \approx 528\Omega
 			\end{equation}
@@ -109,8 +112,8 @@
 					&\frac{5V-3,6V-0,2V}{80mA} \approx 15\Omega
 				\end{split}
 			\end{equation}
-			Da der Mikrocontroller eine Versorgungsspannung von $3,3V$ hat, ist das Steuersignal $U_\mu C$ ebenso groß. Die Basis-Emitter- und Kollektor-Emitter-Spannung sowie der Basisstrom sind dem Datenblatt des BC547C entnommen. Gleiches gilt für die an den LEDs abfallende Spannung. Nach den Berechnungen in (2) und (3) wurde der Basiswiderstand auf $440\Omega$ und der Kollektorwiderstand auf  $15\Omega$ gewählt.
-			Der Kollektorstrom von $I_C=80mA$ ist das Vierfache des Vorwärtsstroms einer LED ($I_F=20mA$), da er sich nach der ersten Kirchhoff'schen Regel gleichmäßig auf die vier LEDs aufteilt.
+			Da der Mikrocontroller eine Versorgungsspannung von $3,3V$ hat, ist das Steuersignal $U_{\mu C}$ ebenso groß. Die Basis-Emitter- und Kollektor-Emitter-Spannung sowie der Basisstrom sind dem Datenblatt des BC547C entnommen. Gleiches gilt für die an den LEDs abfallende Spannung. Nach den Berechnungen in (2) und (3) wurde der Basiswiderstand auf $440\Omega$ und der Kollektorwiderstand auf  $15\Omega$ gewählt.
+
 		\subsection{Gehäuse}
 	\subsection{Platinen}
 		\label{sc:Hardware:subsc:Platinen}
@@ -132,7 +135,7 @@
 	\subsection{Ansteuerung mp3-Player}
 		\label{sc:Hardware:subsc:mp3-Player}
 		Um ein Bild davon zu bekommen, wie die Steuerung des mp3-Players funktioniert, wurde dieser zunächst aus seinem Gehäuse ausgebaut. Durch Testen wurde die Funktionsweise der benötigten Taster simuliert.  In Abb. \ref{fig:mp3-Player} ist eine Zeichnung des mp3-Players dargestellt, die zum näheren Verständnis des folgenden Textes herangezogen werden kann.\par 
-		Der silberne Steuerknopf hat auf zwei gegenüberliegenden Seiten je 3 Kontakte. Darüber liegt rings um diesen Knopf unterhalb der Plastikabdeckung eine Massefläche. Wird der Knopf in eine bestimmte Richtung bewegt, so werden zwei der 6 Pins auf Masse gezogen und daraus resultiert ein Steuersignal. Welches Ereignis durch die Kombination der verschiedenen Pins ausgelöst wird, ist in Tabelle \ref{tab:mp3-Player} dokumentiert. Zur Betätigung des Ein- und Ausschalters, der bei kurzem Drücken für Play/Pause genutzt wird, muss eine der vier Lötstellen auf das Level $1,5V$ gehoben werden. Der Taster weist vier Lötstellen auf. Davon befinden sich zwei auf Oberseite und zwei in Richtung Mitte der Platine. Von letzteren muss die Lötstelle, welche in Richtung der $3,5mm$-Klinken-Buchse liegt, auf 1,5V angehoben werden. Um das $3,3V$ Schaltsignal des Mikrocontrollers auf $1,5V$ für den mp3-Player zu verringern, wurden 3 Dioden vom Typ 1N4448 in Reihe zwischen den Ausgang des Mikrocontrollers und den betreffenden Konnektor zum mp3-Player geschaltet. Über den Dioden fällt jeweils etwa $0,6V$ ab, sodass $3,3V-3\cdot0,6V = 1,5V$ an dem Taster anliegen, wenn der Pin des Mikrocontrollers auf $3,3V$ gesetzt ist.
+		Der silberne Steuerknopf hat auf zwei gegenüberliegenden Seiten je 3 Kontakte. Darüber liegt rings um diesen Knopf unterhalb der Plastikabdeckung eine Massefläche. Wird der Knopf in eine bestimmte Richtung bewegt, so werden zwei der 6 Pins auf Masse gezogen und daraus resultiert ein Steuersignal. Welches Ereignis durch die Kombination der verschiedenen Pins ausgelöst wird, ist in Tabelle \ref{tab:mp3-Player} dokumentiert. Zur Betätigung des Ein- und Ausschalters, der bei kurzem Drücken für Play/Pause genutzt wird, muss eine der vier Lötstellen auf das Level $1,5V$ gehoben werden. Der Taster weist vier Lötstellen auf. Davon befinden sich zwei auf Oberseite und zwei in Richtung Mitte der Platine. Von letzteren muss die Lötstelle, welche in Richtung der $3,5mm$-Klinken-Buchse liegt, auf 1,5V angehoben werden. Um das $3,3V$ Schaltsignal des Mikrocontrollers auf $1,5V$ für den mp3-Player zu verringern, wurden 3 Dioden vom Typ 1N4448 in Reihe zwischen den Ausgang des Mikrocontrollers und den betreffenden Konnektor zum mp3-Player geschaltet. Über den Dioden fällt jeweils etwa $0,6V$ ab, sodass $3,3V-3\cdot0,6V = 1,5V$ an dem Taster anliegen, wenn der Pin des Mikrocontrollers auf $3,3V$ gesetzt ist. Die Versorgungsspannung des mp3-Players wird über einen 1,5V-DC/DC Spannungsregler zur Verfügung gestellt.
 		\begin{center}
 			\begin{tabular}{cccc}
 				\toprule
@@ -182,6 +185,23 @@
 %das alles mit Display 9,83 --> Display 0,32mA
 
 \section{Bedienung}
+Die Abbildungen \ref{fig:wecker1} und \ref{fig:wecker2} zeigen den erstellten Wecker. Unterhalb des Displays befindet sich rechts der Drehencoder und links der Taster. An der rechten Seite des Gehäuses ist ein Lautsprecher zu erkennen, ein identischer Lautsprecher ist auf der linken Seite verbaut.
+
+\begin{figure}
+	\begin{center}	
+		\includegraphics[width=7cm]{./Grafiken/wecker1.jpeg}
+		\caption{Wecker bei ausgeschalteter Beleuchtung}
+		\label{fig:wecker1}
+	\end{center}
+\end{figure}
+\begin{figure}
+	\begin{center}	
+		\includegraphics[width=7cm]{./Grafiken/wecker2.jpeg}
+		\caption{Wecker bei eingeschalteter Beleuchtung}
+		\label{fig:wecker2}
+	\end{center}
+\end{figure}
+
 \subsection{Alarm}
 Um den Alarm ein- oder auszuschalten wird der Taster für mindestens $1,5s$ gedrückt. Ausschalten des Alarms sowie stoppen des Weckrufs geschieht durch Betätigung des Tasters von $1,5s$ oder mehr. Während des Weckrufs ist es außerdem möglich, in den snooze-Modus zu wechseln. Dies geschieht durch kurzes Drücken des Tasters oder Drehen des Drehencoders. Ein erneuter Weckeruf wird nach der im Menü eingestellten Snoozedauer (in Minuten) gestartet. Erneutes snoozen ist nicht möglich und der Weckruf muss über ein $1,5$-sekundiges Drücken des Tasters ausgeschaltet werden.
 \subsection{Menü}
@@ -189,7 +209,7 @@ Das Menü kann über ein langes Drücken des Drehencoders aufgerufen werden. Nav
 \subsection{Lautstärke}
 Für die Einstellung der Lautstärke des Weckrufs muss der entsprechende Unterpunkt im Menü aufgerufen werden. Daraufhin werden Verstärker und mp3-Player eingeschaltet. Letzterer benötigt etwa zehn Sekunden. Während dieser Zeit erscheint der Schriftzug \emph{\glqq Bitte warten\grqq}. Die Musik geht an und anstatt des Schriftzugs erscheint ein Lautsprecher-Symbol. Die Lautstärke kann nun mittels Drehencoder verstellt werden.
 \subsection{Boombox}
-Bei Auswahl des Menüpunktes Boombox, wird der Verstärker eingeschaltet. Nun kann über die auf der Platinen befindlichen Cinch-Buchsen und ein entsprechendes Kabel (z.B. $3,5mm$-Klinke $\leftrightarrow$ Cinch) eine externe Audioquelle wie ein Handy oder Laptop angeschlossen werden. Dessen Audiosignal wird dann über die Lautsprecher wiedergegeben.
+Bei Auswahl des Menüpunktes Boombox, wird der Verstärker eingeschaltet. Nun kann über die Cinch-Buchsen und ein entsprechendes Kabel (z.B. $3,5mm$-Klinke $\leftrightarrow$ Cinch) eine externe Audioquelle wie ein Handy oder Laptop angeschlossen werden. Dessen Audiosignal wird dann über die Lautsprecher wiedergegeben.
 \section{Quellen}
 http://www.avrfreaks.net/sites/default/files/SBIT.H
 \end{document}

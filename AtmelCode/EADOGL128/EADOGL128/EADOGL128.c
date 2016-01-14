@@ -17,6 +17,8 @@ int alarm_hour = 0;
 int alarm_minute = 0;
 int snoozeDuration = 5;//Minuten
 uint8_t snoozeCounter = 0;
+int saved_alarm_h = 0;
+int saved_alarm_m = 0;
 
 int day=24;
 int month = 11;
@@ -225,7 +227,6 @@ void configureTimerAndInterrupts() {
 }
 
 void wakeUp_User(){
-	mute_on();//Verstärker muten, damit kein Knack beim Einschalten entsteht
 	mp3Player_onoff();
 	if(snoozeCounter == 0){
 		next_song();
@@ -235,6 +236,7 @@ void wakeUp_User(){
 	boot_amp();
 
 	bool user_awake = false;
+	
 	LCD_LED = 1;
 	LED_AUSTRALIA = 1;
 	LED_NORWAY = 1;
@@ -266,6 +268,7 @@ void wakeUp_User(){
 				reset_alarmLogo();
 				print_snoozeLogo();
 				update_LCD();
+
 				snooze_alarm();
 				snoozeCounter = 1;
 			}
@@ -290,6 +293,8 @@ void wakeUp_User(){
 				reset_alarmLogo();
 				reset_snoozeLogo();
 				snoozeCounter = 0;
+				alarm_hour = saved_alarm_h;
+				alarm_minute = saved_alarm_m;
 				
 			}
 		}
@@ -300,7 +305,8 @@ void wakeUp_User(){
 }
 
 void snooze_alarm(){
-	
+	saved_alarm_h = alarm_hour;
+	saved_alarm_m = alarm_minute;
 	alarm_minute = minute + snoozeDuration % 60;
 	if(alarm_minute < 5)
 		alarm_hour = hour + 1;
@@ -320,6 +326,10 @@ void check_light(){
 		//falls länger als BTN_PRESS_LONG gedrückt wurde, Alarm toggeln
 		if((btn_press_duration > BTN_PRESS_LONG) && (menuOpen==false)){
 			alarm = !alarm;
+			if(!alarm){
+				alarm_hour = saved_alarm_h;
+				alarm_minute = saved_alarm_m;
+			}
 			print_stdDisplay();
 		} else {//ansonsten Licht einschalten
 			LCD_LED = 1;//Hintergrundbeleuchtung Display an
