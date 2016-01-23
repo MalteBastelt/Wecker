@@ -161,7 +161,7 @@
 		\label{sc:Hardware:subsc:Platinen}
 		Die für dieses Projekt benötigten Platinen wurden mit KiCAD geplant und anschließend im FabLab der Friedrich-Alexander-Universität Erlangen-Nürnberg erstellt. Die erste Platine konnte nicht verwendet werden, da das ausgedruckte Layout nicht den tatsächlichen Dimensionen entsprach. Die Ursache hierfür liegt vermutlich im Export des Schaltplans in eine PDF-Datei. Korrekte Maße bleiben nur Erhalten, wenn in eine PostScript-Datei anstatt in ein PDF exportiert wird.\par Eine Platine ist für das Display und die zugehörigen Bauelemente (Kondensatoren, Widerstände) ausgelegt. Über einen Steckverbinder kann diese Platine mit der Hauptplatine verbunden werden, welche die anderen Bauelemente wie zum Beispiel den Mikrocontroller und den Audio-Verstärker enthält. \par
 		Für die Displayplatine wurden die Anschlüsse des Displays nicht direkt auf der Platine verlötet. Es wurden Buchsenleisten verlötet in welche das Display samt verlöteter Hintergrundbeleuchtung eingesteckt wird. Dies dient einerseits dazu, dass das Display zum Wechsel oder zur Reparatur ausgebaut werden kann; andererseits dazu, dass der Abstand zwischen Gehäuseinnenseite und Platine vergrößert wird. Dies ist notwendig, damit der Drehencoder, welcher auf der Platine befestigt wird, nicht zu weit nach vorne aus dem Gehäuse herausragt. Außerdem dient es der Herstellung einer kraftschlüssigen Verbindung zwischen Display und Gehäuse (siehe \ref{sc:Hardware:subsc:Gehäuse}).  Für die Erstellung der Platine wurde eine Leiterbahnbreite von $0,5mm$ gewählt, da genug Fläche vorhanden war.\par
-		Für die Hauptplatine wurde ebenfalls eine Leiterbahnbreite von $0,5mm$ gewählt. Neben der Displayplatine wurden weitere Bauelemente per Steckverbinder mit der Hauptplatine verbunden. Diese sind:
+		Für die Hauptplatine (Abb. \ref{fig:Hauptplatine}) wurde ebenfalls eine Leiterbahnbreite von $0,5mm$ gewählt. Neben der Displayplatine wurden weitere Bauelemente per Steckverbinder mit der Hauptplatine verbunden. Diese sind:
 		\begin{itemize}
 			\item Lautsprecher
 			\item Taster
@@ -169,27 +169,49 @@
 			\item LED-Beleuchtung (Bilder)
 			\item mp3-Player
 		\end{itemize}
-		 Abbildung \ref{fig:Hauptplatine} zeig die bestückte Hauptplatine. Zur Identifikation der Bauteile können die in KiCAD erstellten Dokumente genutzt werden, die sich im GitHub-Verzeichnis befinden.
+		Für die Befestigung des Drehencoders wurde in die Displayplatine an der entsprechenden Position ein Loch gebohrt. Weiterhin erhielt die Platine in den vier Ecken je eine Bohrung, damit sie später mit Schrauben befestigt werden kann. Der Drehencoder ist ausreichend lang, sodass er aus der Front herausragt und bedient werden kann. Der Taster zur Bedienung der Beleuchtung wird in ein Loch passender Größe geklemmt.
+		
 		\begin{figure}
 			\begin{center}	
-				\includegraphics[width=7cm]{./Grafiken/Platine.jpg}
-				\caption{Hauptplatine.}
+				\includegraphics[width=8cm]{./Grafiken/Platine.jpg}
+				\caption{Hauptplatine. Bauteilanordnung wie im KiCAD-Projekt (siehe Github-Verzeichnis).}
 				\label{fig:Hauptplatine}
 			\end{center}
 		\end{figure}	
 		
 		\subsection{Gehäuse}
 			\label{sc:Hardware:subsc:Gehäuse}
-			In die vier Ecken der Platine werden Löcher gebohrt, ebenso im gleichen Abstandsmaß in die Front des Weckers. Anschließend kann die Platine per Schraube und Mutter von innen gegen das Gehäuse gedrückt werden, sodass das Display fixiert ist und durch die rechteckige Öffnung in der Front des Gehäuses betrachtet werden kann.
+			Das Gehäuse wurde aus Spanplatten hergestellt. Um für ausreichend Stabilität zu sorgen, haben diese eine Stärke von $8mm$. Die sechs benötigten Elemente wurden mit einer Kreissäge der Firma Martin zugeschnitten. Hierbei ist es möglich, das Sägeblatt um bis zu $45^{\circ}$ zu neigen. Dies wurde genutzt, um die einzelnen Elemente auf Gehrung zu sägen. Die Schnittwinkel an jeder Kante ergeben sich aus dem halben Gesamtwinkel der jeweiligen Kante.
+				\begin{figure}
+					\begin{center}	
+						\includegraphics[width=4cm]{./Grafiken/Winkel.png}
+						\caption{Schematische Seitenansicht Wecker. Links befindet sich die schräge Front.}
+						\label{fig:Winkel}
+					\end{center}
+				\end{figure}	
+			Damit das Display auch von einem höheren Blickwinkel aus betrachten werden kann, soll die Front um $20^{\circ}$ nach hinten geneigt sein. Somit ergibt sich also beispielsweise für die Schnittkante von Frontplatte und Bodenplatte jeweils ein Winkel von $70^{\circ} / 2 = 35^{\circ}$. Analog gilt dies für alle anderen Kanten.\par
+			DIE MAßE DER KISTE!!!
+			Nach dem Zuschnitt der Elemente müssen bis auf die Bodenplatte alle mit dem Lasercutter bearbeitet werden. So entstehen in der Rückwand zwei Durchgänge für die Cinch-Buchsen und ein Durchgang für die Buchse der Versorgungsspannung. In den Seitenelementen werden Löcher für die Lautsprecher benötigt. Für die Front werden Ausschnitte für das Display, die Bilder, den Drehencoder und den Taster erstellt.\\
+			Das $8mm$ starke Holz muss sowohl von der Vorderseite als auch von der Rückseite gelasert werden, um mit dem Lasercutter durchgehende Schnitte zu erzeugen. Durch Ungenauigkeiten in der Positionierung entstehen hierbei keine geraden Kanten. Sie müssen mit einer Feile nachbearbeitet werden. Deshalb wurde diese Technik nicht für das Ausschneiden der Bilder genutzt und die Frontplatte aus einer $4mm$ starken Spanplatte erstellt, damit die Bilder durch einseitiges lasern gestaltet werden können.\\
+			\begin{figure}
+				\begin{center}	
+					\includegraphics[width=8cm]{./Grafiken/Innen.jpg}
+					\caption{Innenansicht auf die Frontplatte. In der Mitte die Displayplatie, daneben zwei Plexiglasscheiben.}
+					\label{fig:Innen}
+				\end{center}
+			\end{figure}	
+			Gegen die auf der Front ausgeschnittenen Bilder wurde von der Innenseite rote Transparentfolie geklebt. Hinter dieser befindet sich eine angeschliffenes Stück Plexiglas, in die oben und unten je zwei Löcher mit einem Durchmesser von $5mm$ gebohrt wurden, siehe Abb. \ref{fig:Innen}. Darin wurden die LEDs eingebracht. Da diese ebenfalls einen Durchmesser von $5mm$ haben, ist kein Klebematerial notwendig.\\
+			Weiterhin wurden Holzleisten eingebaut, um die Displayplatine sowie die Plexiglasscheiben an der Frontplatte zu fixieren. Außerdem wurde eine Holzleiste auf dem Boden an der Rückwand eingeleimt. An dieser wird die Hauptplatine mit zwei Schrauben fixiert. Auch am Deckenelement wurde eine Holzleiste gleicher Länge an angebracht. So kann die Rückwand mit diesen Leisten verschraubt und bei Bedarf entfernt werden, zum Beispiel um Software-Updates durchzuführen oder die Lieder auf dem mp3-Player zu ändern. Alle übrigen Teile des Gehäuses wurden miteinander verleimt.
 \section{Software}
 	Um die gewünschten Inhalte auf dem LCD-Display anzuzeigen, müssen diese Elemente zunächst generiert werden. Dies geschah mittels Inkscape. Anschließend wurden diese Inhalte einen selbst geschriebenen Java-Programm zugeführt, welches in Abschnitt \ref{sc:Software:subsc:Bildkonverter} beschrieben wird. Der zweite Abschnitt befasst sich mit dem umfangreicheren Code, der auf dem Mikrocontroller eingesetzt wird.
 	\subsection{Bildkonversion}
 		\label{sc:Software:subsc:Bildkonverter}
-		Für die Entwicklung eines Bildkonverters in Java wurde Eclipse genutzt. Ziel ist die Umwandlung von grafischen Dateien in Binärcode, also ein monochrom Bild. Anschließend sollen jeweils 8 Binärwerte/Pixel zu einer Hexadezimalzahl zusammengefasst werden.\par 
-		Zunächst werden Dateien mit einzelnen Buchstaben, Symbolen und Bildern in Inkscape erstellt. In Schriftgröße 18 gibt ein zentrierter Großbuchstabe \textit{J} die vertikale Position aller weiteren Buchstaben vor, da dies der höchste Buchstabe ist. Die erstellte Grafik wird als \textit{*.png} exportiert und dem Java-Programm zugeführt. Dieses trägt den Namen \textit{Bildkonverter}. Wird es geöffnet, sind drei Buttons und ein Eingabefeld zu sehen. Über \textit{Datei wählen} wird das zu verarbeitende Bild ausgewählt. Die Umwandlung startet durch Klicken des entsprechenden Buttons. Zunächst wird durch Auswertung des Rotkanals jedes Pixels ein Binärwert erzeugt. Ist der Wert des Rotkanals größer oder gleich der angegebene Schwelle, so wird das entsprechende Pixel gesetzt. Ist es geringer als der Schwellwert, wird dieser Pixel auf null gesetzt. Anschließend werden jeweils 8 aufeinander folgende Pixel einer Spalte zu einem Hexadezimalwert zusammengefasst, um das Handling zu erleichtern. Wenn ein Bild eine Höhe von 16px hat und eine Breite von 3px, so werden 3 Mal zwei Hexadezimalwerte erzeugt. Diese sechs Werte werden in geschweiften Klammern ausgegeben, damit diese in einem Alphabet-Array im Code für den Mikrocontroller gespeichert werden können. Weiterhin wird eine Vorschau des Binärbildes angezeigt. So müssen die Daten nicht erst auf den Mikrocontroller überspielt und am LCD-Display angezeigt werden, um Fehler zu erkennen. Diese können beispielsweise durch Änderung des Schwellwertes oder durch das Setzen oder Löschen einzelner Pixel in dem Bild mittels Bildbearbeitungssoftware (zum Beispiel Paint) korrigiert werden. Zum Beenden des Konverters dient der Button \textit{Schließen}. Die Ausgabe befindet sich nun in einer Datei mit dem Namen \textit{Konverter-output.txt} in dem Ordner, in dem das Java-Programm gestartet wurde.\par
+		Für die Entwicklung eines Bildkonverters in Java wurde Eclipse genutzt. Ziel ist die Umwandlung von grafischen Dateien in Binärcode, also ein monochrom Bild, da die Pixel auf dem Display nur ein- oder ausgeschaltet werden können. Jeweils 8 Binärwerte sollen (Pixel) zu einer Hexadezimalzahl zusammengefasst werden, denn das setzen von Pixeln erfolgt in Bytes, siehe \cite{EADOG}.\par 
+		Zunächst werden Dateien mit einzelnen Buchstaben, Symbolen und Bildern in Inkscape erstellt. Die Schriftgröße wurde so gewählt, dass die Buchstaben und Ordinalzahlen zur Datumsanzeige eine maximale Höhe von 16 Pixeln haben. Diese Buchstaben werden ebenfalls für die Darstellung von Menüinhalten genutzt. Die Uhrzeit wird mit Ziffern dargestellt, deren Höhe 32 Pixel beträgt. In diesem Projekt gibt ein zentrierter Großbuchstabe \textit{J} der Schriftgröße 18 die vertikale Position aller weiteren Buchstaben vor, da dies der höchste Buchstabe ist.\\
+		Die erstellte Grafik wird als \textit{*.png} exportiert und dem Java-Programm zugeführt. Dieses trägt den Namen \textit{Bildkonverter}. Wird es geöffnet, sind drei Buttons und ein Eingabefeld zu sehen. Über \textit{Datei wählen} wird das zu verarbeitende Bild ausgewählt. Die Umwandlung startet durch Klicken des entsprechenden Buttons. Zunächst wird durch Auswertung des Rotkanals jedes Pixels ein Binärwert erzeugt. Ist der Wert des Rotkanals größer oder gleich dem der im Eingabefeld angegebenen Schwelle, so wird das entsprechende Pixel gesetzt. Ist es geringer als der Schwellwert, wird dieser Pixel auf null gesetzt. Anschließend werden jeweils 8 aufeinander folgende Pixel einer Spalte zu einem Hexadezimalwert zusammengefasst, um das Handling zu erleichtern. Wenn ein Bild eine Höhe von 16px hat und eine Breite von 3px, so werden 3 Mal zwei Hexadezimalwerte erzeugt. Diese sechs Werte werden in geschweiften Klammern ausgegeben, damit diese in einem Alphabet-Array im Code für den Mikrocontroller gespeichert werden können. Weiterhin wird eine Vorschau des Binärbildes angezeigt. So müssen die Daten nicht erst auf den Mikrocontroller überspielt und am LCD-Display angezeigt werden, um Fehler zu erkennen. Diese können beispielsweise durch Änderung des Schwellwertes oder durch das Setzen oder Löschen einzelner Pixel in dem Bild mittels Bildbearbeitungssoftware (zum Beispiel Paint) korrigiert werden. Zum Beenden des Konverters dient der Button \textit{Schließen}. Die Ausgabe befindet sich nun in einer Datei mit dem Namen \textit{Konverter-output.txt} in dem Ordner, in dem das Java-Programm gestartet wurde.\par
 	\subsection{Atmel-Code}
 	\label{sc:Software:subsc:Atmel-Code}
-	Der Code für den Mikrocontroller wurde zunächst in AtmelStudio 6.1 und anschließend in AtmelStudio 7.0 erstellt. Er setzt sich aus verschiedenen Dateien zusammen. Die Hauptaufgabe übernimmt eine Endlosschleife in der Main-Funktion der Datei \emph{EADOGL128.c}. In \emph{EADOGL128\_commands.c} wurden die Befehle zur Ansteuerung des LCD-Displays implementiert. Um den mp3-Player und den Audio-Verstärker anzusprechen, werden die in \emph{mp3.c} erstellten Funktionen genutzt. Nicht selbst geschriebener Code wurde in Form von Standardbibliotheken wie \emph{avr/io.h} genutzt sowie in der Datei \emph{sbit.h} \cite{sbit}, welche es ermöglicht, Pins wie Variablen ansprechen zu können.
+	Der Code für den Mikrocontroller wurde zunächst in AtmelStudio 6.1 und anschließend in AtmelStudio 7.0 erstellt. Er setzt sich aus verschiedenen Dateien zusammen. Die Hauptaufgabe übernimmt eine Endlosschleife in der Main-Funktion der Datei \emph{EADOGL128.c}. In \emph{EADOGL128\_commands.c} wurden die Befehle zur Ansteuerung des LCD-Displays implementiert. Hierbei kommuniziert der Mikrocontroller mittels synchroner Datenübertragung mit dem Display. Dafür muss dieser das Clocksignal generieren. Weiterhin muss das Chip-Select-Signal, sowie die Daten angelegt werden, wie es in \cite{EADOG} dargestellt ist. Um den mp3-Player und den Audio-Verstärker anzusprechen, werden die in \emph{mp3.c} erstellten Funktionen genutzt. Nicht selbst geschriebener Code wurde in Form von Standardbibliotheken wie \emph{avr/io.h} genutzt sowie in der Datei \emph{sbit.h} \cite{sbit}, welche es ermöglicht, Pins wie Variablen ansprechen zu können.
 	
 	EADOGL128.c:
 	Es gibt mehrere Interrupt-Service-Routinen, die Einfluss auf die ausgeführten Aktionen in der Main-Funktion nehmen. Im Normalzustand befindet sich der Mikrocontroller im sleep-Modus. Um in diesen einzutreten sind einige Vorbereitungen notwendig, die in der Funktion \emph{goodNight()} implementiert sind. Das Verlassen des sleep-Modus geschieht durch eines von mehreren möglichen Interrupts. Hierzu zählen die Bedienung des Drehencoders und des Tasters sowie ein Timer-Overflow aufgrund der Zeitmessung mittels Uhrenquarz. Dieser Overflow findet ein Mal pro Sekunde statt. Wenn sich auf dem LCD-Display durch das Zeit-Update nichts ändern muss (Sekunde<60), wird der sleep-Modus erneut aktiviert. \par
@@ -220,14 +242,14 @@ Die Abbildungen \ref{fig:wecker1} und \ref{fig:wecker2} zeigen den erstellten We
 
 \begin{figure}
 	\begin{center}	
-		\includegraphics[width=7cm]{./Grafiken/wecker1.jpeg}
+		\includegraphics[width=8cm]{./Grafiken/wecker1.jpeg}
 		\caption{Wecker bei ausgeschalteter Beleuchtung}
 		\label{fig:wecker1}
 	\end{center}
 \end{figure}
 \begin{figure}
 	\begin{center}	
-		\includegraphics[width=7cm]{./Grafiken/wecker2.jpeg}
+		\includegraphics[width=8cm]{./Grafiken/wecker2.jpeg}
 		\caption{Wecker bei eingeschalteter Beleuchtung}
 		\label{fig:wecker2}
 	\end{center}
@@ -242,9 +264,16 @@ Für die Einstellung der Lautstärke des Weckrufs muss der entsprechende Unterpu
 \subsection{Boombox}
 Bei Auswahl des Menüpunktes Boombox, wird der Verstärker eingeschaltet. Nun kann über die Cinch-Buchsen und ein entsprechendes Kabel (z.B. $3,5mm$-Klinke $\leftrightarrow$ Cinch) eine externe Audioquelle wie ein Handy oder Laptop angeschlossen werden. Dessen Audiosignal wird dann über die Lautsprecher wiedergegeben.
 	
+
+\section{Fazit}
+Im Rahmen dieses Projektes sind mehrere lehrreiche Momente aufgetreten. Es beginnt bei dem Einkauf von Bauteilen. Hierbei sollte man direkt das Datenblatt aufrufen und nach einer beispielhaften Beschaltung (Application Circuit) suchen. Diese sollte dann auf das vorliegende Projekt angepasst werden, sodass benötigte Zusatzelemente wie zum Beispiel Kondensatoren ebenfalls eingekauft werden, falls sie nicht vorhanden sind. So können unnötige Zeiten von Stillstand im Projekt vermieden werden.\\
+Bei der Erstellung des PCB-Layouts für die Platinen wurde zu Beginn nicht durchgängig die Anordnung der Bauteile auf dem Schaltplan beachtet. Somit kommt es in dem Layout zu viele Kreuzungen der Leiterbahnen. Eine Vorsortierung in Bauteilgruppen erleichtert das Routing und ist deshalb ratsam.\\
+Außerdem habe ich meine Kenntnisse im Bereich der Programmierung von Mikrocontrollern ausgebaut. So kann ich jetzt deutlich schneller Timer und Interrupts konfigurieren, weil mir die Struktur der Mikrocontroller verständlicher geworden ist. Hierbei helfen Datenblätter und Application Notes. Das Studieren dieser kann nicht nur im Falle von Mikrocontroller sehr hilfreich sein und so ist es nützlich gelernt zu haben, wie man sich in solchen Dokumenten zurechtfindet.\\
+Weiterhin haben viele Gespräche mit anderen Personen gute Ideen zu Tage gefördert und vor allem hilfreiche Verbesserungsvorschläge geliefert. Der Austausch mit diesen Menschen hat mich in einigen Situationen entscheidend nach vorne gebracht.  
+Doch das beste Ergebnis ist, dass das Endprodukt der Beschenkten gefällt.
+
+
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,./References.bib}
 
-\section{Fazit}
-Bei der Erstellung des PCB-Layouts wurde zu Beginn nicht durchgängig die Anordnung der Bauteile auf dem Schaltplan beachtet. Somit kommt es zu viele Kreuzungen der Leiterbahnen. Eine Vorsortierung in Bauteilgruppen erleichtert das Routing und ist deshalb ratsam.
 \end{document}

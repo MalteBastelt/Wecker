@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2016.1.13)  23 JAN 2016 12:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2016.1.13)  23 JAN 2016 16:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -689,46 +689,49 @@ t line 155.
 File: ./Grafiken/Platine.jpg Graphic file (type jpg)
 
 <use ./Grafiken/Platine.jpg>
-Package pdftex.def Info: ./Grafiken/Platine.jpg used on input line 175.
-(pdftex.def)             Requested size: 199.16928pt x 149.67625pt.
- [3 <./Grafiken/mp3Player-eps-converted-to.pdf> <./Grafiken/Platine.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 194--195
+Package pdftex.def Info: ./Grafiken/Platine.jpg used on input line 176.
+(pdftex.def)             Requested size: 227.62204pt x 171.05pt.
+
+<./Grafiken/Winkel.png, id=25, 261.778pt x 195.932pt>
+File: ./Grafiken/Winkel.png Graphic file (type png)
+
+<use ./Grafiken/Winkel.png>
+Package pdftex.def Info: ./Grafiken/Winkel.png used on input line 187.
+(pdftex.def)             Requested size: 113.81102pt x 85.18488pt.
+ [3 <./Grafiken/mp3Player-eps-converted-to.pdf> <./Grafiken/Platine.jpg>] <./Gr
+afiken/Innen.jpg, id=35, 2617.78pt x 1967.35pt>
+File: ./Grafiken/Innen.jpg Graphic file (type jpg)
+
+<use ./Grafiken/Innen.jpg>
+Package pdftex.def Info: ./Grafiken/Innen.jpg used on input line 198.
+(pdftex.def)             Requested size: 227.62204pt x 171.05pt.
+ [4 <./Grafiken/Winkel.png> <./Grafiken/Innen.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 216--217
 []\T1/ptm/m/n/10 EADOGL128.c: Es gibt meh-re-re Interrupt-Service-
  []
 
 
-Underfull \hbox (badness 2726) in paragraph at lines 194--195
+Underfull \hbox (badness 2726) in paragraph at lines 216--217
 \T1/ptm/m/n/10 der Main-Funktion neh-men. Im Nor-mal-zu-stand be-fin-det
  []
 
-[4] <./Grafiken/wecker1.jpeg, id=38, 2601.72pt x 1463.4675pt>
+<./Grafiken/wecker1.jpeg, id=40, 2601.72pt x 1463.4675pt>
 File: ./Grafiken/wecker1.jpeg Graphic file (type jpg)
 
 <use ./Grafiken/wecker1.jpeg>
-Package pdftex.def Info: ./Grafiken/wecker1.jpeg used on input line 223.
-(pdftex.def)             Requested size: 199.16928pt x 112.03305pt.
+Package pdftex.def Info: ./Grafiken/wecker1.jpeg used on input line 245.
+(pdftex.def)             Requested size: 227.62204pt x 128.02182pt.
 
-<./Grafiken/wecker2.jpeg, id=39, 2601.72pt x 1463.4675pt>
+<./Grafiken/wecker2.jpeg, id=41, 2601.72pt x 1463.4675pt>
 File: ./Grafiken/wecker2.jpeg Graphic file (type jpg)
 
 <use ./Grafiken/wecker2.jpeg>
-Package pdftex.def Info: ./Grafiken/wecker2.jpeg used on input line 230.
-(pdftex.def)             Requested size: 199.16928pt x 112.03305pt.
- (./Ollenschlaeger_Doku_Wecker.bbl
+Package pdftex.def Info: ./Grafiken/wecker2.jpeg used on input line 252.
+(pdftex.def)             Requested size: 227.62204pt x 128.02182pt.
+ [5] (./Ollenschlaeger_Doku_Wecker.bbl
 Overfull \hbox (30.88516pt too wide) in paragraph at lines 26--30
 \T1/ptm/m/n/8 http://www.st.com/web/en/resource/technical/document/datasheet/CD
 00000455.pdf 
- []
-
-
-Underfull \hbox (badness 3333) in paragraph at lines 33--37
-[]\T1/ptm/m/it/8 334-15/X2C1-1UWB\T1/ptm/m/n/8 , Ever-light Tech-ni-cal Da-ta S
-heet,
- []
-
-
-Underfull \hbox (badness 1596) in paragraph at lines 33--37
-\T1/ptm/m/n/8 Rev. 2, Nov. 2008. [On-li-ne]. Availa-ble: http://cdn-
  []
 
 
@@ -737,24 +740,24 @@ Underfull \hbox (badness 3690) in paragraph at lines 40--44
  []
 
 
-Underfull \hbox (badness 6173) in paragraph at lines 40--44
-\T1/ptm/m/n/8 tro-nics Std., Jan. 2003. [On-li-ne]. Availa-ble:
+Underfull \hbox (badness 3179) in paragraph at lines 40--44
+\T1/ptm/m/n/8 tro-nics Da-tas-heet, Jan. 2003. [On-li-ne]. Availa-ble:
  []
 
-) [5 <./Grafiken/wecker1.jpeg> <./Grafiken/wecker2.jpeg>]
+) [6 <./Grafiken/wecker1.jpeg> <./Grafiken/wecker2.jpeg>]
 (./Ollenschlaeger_Doku_Wecker.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 5461 strings out of 493117
- 81046 string characters out of 6138984
- 154883 words of memory out of 5000000
- 8820 multiletter control sequences out of 15000+600000
+ 5474 strings out of 493117
+ 81297 string characters out of 6138984
+ 154903 words of memory out of 5000000
+ 8831 multiletter control sequences out of 15000+600000
  113258 words of font info for 116 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,16n,38p,1928b,309s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,16n,38p,1696b,309s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}<c:/texlive/2014/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2014/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmmi7.pfb><c:/texlive/2014/texmf-dist/fonts/type1/
@@ -766,10 +769,10 @@ exlive/2014/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/texlive/2014/texmf-
 dist/fonts/type1/urw/times/utmbi8a.pfb><c:/texlive/2014/texmf-dist/fonts/type1/
 urw/times/utmr8a.pfb><c:/texlive/2014/texmf-dist/fonts/type1/urw/times/utmri8a.
 pfb>
-Output written on Ollenschlaeger_Doku_Wecker.pdf (5 pages, 3058583 bytes).
+Output written on Ollenschlaeger_Doku_Wecker.pdf (6 pages, 5076198 bytes).
 PDF statistics:
- 79 PDF objects out of 1000 (max. 8388607)
- 51 compressed objects within 1 object stream
+ 85 PDF objects out of 1000 (max. 8388607)
+ 53 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
